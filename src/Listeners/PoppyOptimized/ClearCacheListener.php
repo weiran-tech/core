@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types = 1);
+
+namespace Weiran\Core\Listeners\PoppyOptimized;
+
+use Weiran\Framework\Events\PoppyOptimized;
+
+/**
+ * 清除缓存
+ */
+class ClearCacheListener
+{
+
+    /**
+     * @param PoppyOptimized $event 框架优化
+     */
+    public function handle(PoppyOptimized $event): void
+    {
+        sys_tag('py-core')->clear();
+
+        // clear console logs
+        $logs  = glob(storage_path('logs/console-*.log'));
+        $count = count($logs);
+        collect($logs)->each(function ($file, $idx) use ($count) {
+            if ($idx + 5 < $count) {
+                app('files')->delete($file);
+            }
+        });
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+    }
+}
+

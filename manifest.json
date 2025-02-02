@@ -1,0 +1,8 @@
+{
+    "name": "核心",
+    "slug": "core",
+    "type": "poppy",
+    "version": "1.0",
+    "order": 5,
+    "description": "Poppy Core."
+}
