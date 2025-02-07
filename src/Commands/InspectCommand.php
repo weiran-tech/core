@@ -868,12 +868,12 @@ class InspectCommand extends Command
             $className = ucfirst(Str::camel($m));
         }
         else {
-            $m = Str::after($module, 'poppy.');
+            $m = Str::after($module, 'weiran.');
             if (Str::contains($m, 'ext-')) {
-                $className = 'Poppy\\Extension\\' . ucfirst(Str::camel(Str::after($m, 'ext-')));
+                $className = 'Weiran\\Extension\\' . ucfirst(Str::camel(Str::after($m, 'ext-')));
             }
             else {
-                $className = 'Poppy\\' . ucfirst(Str::camel($m));
+                $className = 'Weiran\\' . ucfirst(Str::camel($m));
             }
         }
         $paths = explode('/', $relative_path);

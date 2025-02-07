@@ -26,10 +26,10 @@ class ModuleTest extends TestCase
 
     public function testHasAttributes(): void
     {
-        $module = (new Module('poppy.core'));
-        $this->assertEquals(poppy_path('poppy.core'), $module->directory());
-        $this->assertEquals('poppy.core', $module->slug());
-        $this->assertEquals('Poppy\\Core', $module->namespace());
+        $module = (new Module('weiran.core'));
+        $this->assertEquals(poppy_path('weiran.core'), $module->directory());
+        $this->assertEquals('weiran.core', $module->slug());
+        $this->assertEquals('Weiran\\Core', $module->namespace());
     }
 
     public function testMenus(): void

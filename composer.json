@@ -1,5 +1,5 @@
 {
-    "name": "poppy/core",
+    "name": "weiran/core",
     "description": "An core plugin for poppy.",
     "license": "Apache-2.0",
     "authors": [
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Poppy\\Core\\": "src/"
+            "Weiran\\Core\\": "src/"
         },
         "files": [
             "src/Support/functions.php"
@@ -23,7 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Poppy\\Core\\Tests\\": "tests/"
+            "Weiran\\Core\\Tests\\": "tests/"
         }
     },
     "config": {
