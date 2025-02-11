@@ -58,7 +58,7 @@ class DbCommand extends Command
     public function dbFriendly(): void
     {
         $modelDb = [];
-        app('poppy')->enabled()->each(function ($module, $slug) use (&$modelDb) {
+        app('weiran')->enabled()->each(function ($module, $slug) use (&$modelDb) {
             $path  = poppy_path($slug, '/src/Models/*.php');
             $files = glob($path);
             foreach ($files as $file) {
@@ -81,7 +81,7 @@ class DbCommand extends Command
     private function dbFields(): void
     {
         $seoDb = [];
-        app('poppy')->enabled()->each(function ($module, $slug) use (&$seoDb) {
+        app('weiran')->enabled()->each(function ($module, $slug) use (&$seoDb) {
             $path  = poppy_path($slug, '/src/Models/*.php');
             $files = glob($path);
             try {

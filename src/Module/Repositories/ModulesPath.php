@@ -41,7 +41,7 @@ class ModulesPath extends Repository
                                 throw new ModuleException("Module `{$slug}`'s key `{$key}` on `{$type}` is not an array");
                             }
 
-                            $conf             = app('poppy')->where('slug', $slug);
+                            $conf             = app('weiran')->where('slug', $slug);
                             $menu['enabled']  = $conf['enabled'] ?? false;
                             $menu['order']    = $conf['order'] ?? 0;
                             $menu['type']     = $type;

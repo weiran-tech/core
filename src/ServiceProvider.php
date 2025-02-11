@@ -9,9 +9,9 @@ use Weiran\Core\Listeners\PoppyOptimized\ClearCacheListener;
 use Weiran\Framework\Events\PoppyOptimized as PoppyOptimizedEvent;
 use Weiran\Framework\Events\PoppySchedule;
 use Weiran\Framework\Exceptions\ModuleNotFoundException;
-use Weiran\Framework\Support\PoppyServiceProvider;
+use Weiran\Framework\Support\WeiranServiceProvider;
 
-class ServiceProvider extends PoppyServiceProvider
+class ServiceProvider extends WeiranServiceProvider
 {
 
     protected array $listens = [

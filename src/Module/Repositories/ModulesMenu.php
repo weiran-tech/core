@@ -220,7 +220,7 @@ class ModulesMenu extends Repository
 
             /* get manifest files
              * ---------------------------------------- */
-            $configuration         = app('poppy')->where('slug', $prefix);
+            $configuration         = app('weiran')->where('slug', $prefix);
             $definition['enabled'] = $configuration['enabled'] ?? false;
             $definition['order']   = $configuration['order'] ?? 0;
             $definition['text']    = $configuration['description'] ?? 0;

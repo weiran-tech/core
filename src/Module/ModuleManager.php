@@ -59,7 +59,7 @@ class ModuleManager
     {
         if (!$this->repository instanceof Modules) {
             $this->repository = new Modules();
-            $slugs            = app('poppy')->enabled()->pluck('slug');
+            $slugs            = app('weiran')->enabled()->pluck('slug');
             $this->repository->initialize($slugs);
         }
         return $this->repository;

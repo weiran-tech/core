@@ -26,7 +26,7 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
             'directory' => poppy_path($slug),
             'namespace' => poppy_class($slug),
             'slug'      => $slug,
-            'enabled'   => app('poppy')->isEnabled($slug),
+            'enabled'   => app('weiran')->isEnabled($slug),
         ];
     }
 

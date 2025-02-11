@@ -58,27 +58,27 @@ class InspectCommand extends Command
         $type = $this->argument('type');
         switch ($type) {
             case 'class':
-                app('poppy')->enabled()->each(function ($module, $slug) {
+                app('weiran')->enabled()->each(function ($module, $slug) {
                     $this->inspectClass($slug);
                 });
                 break;
             case 'file':
-                app('poppy')->enabled()->each(function ($module, $slug) {
+                app('weiran')->enabled()->each(function ($module, $slug) {
                     $this->inspectFileName($slug);
                 });
                 break;
             case 'controller':
-                app('poppy')->enabled()->each(function ($module, $slug) {
+                app('weiran')->enabled()->each(function ($module, $slug) {
                     $this->inspectController($slug);
                 });
                 break;
             case 'action':
-                app('poppy')->enabled()->each(function ($module, $slug) {
+                app('weiran')->enabled()->each(function ($module, $slug) {
                     $this->inspectAction($slug);
                 });
                 break;
             case 'util':
-                app('poppy')->enabled()->each(function ($module, $slug) {
+                app('weiran')->enabled()->each(function ($module, $slug) {
                     $this->inspectUtil($slug);
                 });
                 break;
@@ -765,7 +765,7 @@ class InspectCommand extends Command
         Artisan::call('poppy:optimize');
 
         $permissions = [];
-        app('poppy')->enabled()->each(function ($module, $slug) use (&$permissions) {
+        app('weiran')->enabled()->each(function ($module, $slug) use (&$permissions) {
             $directory = poppy_path($slug, 'src/Http/Request');
             if (app('files')->exists($directory)) {
                 $files = app('files')->allFiles($directory);
