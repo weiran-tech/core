@@ -79,9 +79,9 @@ if (!function_exists('sys_db')) {
         }
 
         if (!$cache) {
-            $cache = sys_tag('wr-core')->hGetAll(PyCoreDef::ckLangModels());
+            $cache = sys_tag('weiran-core')->hGetAll(PyCoreDef::ckLangModels());
             if (!$cache) {
-                app(ConsoleKernelContract::class)->call('wr-core:db', [
+                app(ConsoleKernelContract::class)->call('weiran-core:db', [
                     'do' => 'fields',
                 ]);
                 $cache = sys_tag('wr-core')->hGetAll(PyCoreDef::ckLangModels());

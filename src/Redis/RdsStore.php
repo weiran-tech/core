@@ -28,7 +28,7 @@ class RdsStore
         $cacheData = [
             'expired' => Carbon::now()->addSeconds($second)->timestamp,
         ];
-        $fetchData = sys_tag('wr-core')->get(PyCoreDef::ckCacher($key));
+        $fetchData = sys_tag('weiran-core')->get(PyCoreDef::ckCacher($key));
         // 无数据 / 已过期
         if (!$fetchData || $fetchData['expired'] <= Carbon::now()->timestamp) {
             if ($value instanceof Closure) {

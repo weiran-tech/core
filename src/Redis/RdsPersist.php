@@ -39,7 +39,7 @@ class RdsPersist
      */
     public static function where($table, array $where = []): array
     {
-        $rdsDb     = sys_tag('wr-core-persist');
+        $rdsDb     = sys_tag('weiran-core-persist');
         $rdsKey    = PyCoreDef::ckPersistPersist($table . '_' . self::TYPE_UPDATE);
         $whereJson = self::whereCondition($where);
         // 当前key的所有list数据

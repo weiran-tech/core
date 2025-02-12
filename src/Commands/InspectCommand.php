@@ -29,7 +29,7 @@ class InspectCommand extends Command
      * The name and signature of the console command.
      * @var string
      */
-    protected $signature = 'wr-core:inspect 
+    protected $signature = 'weiran-core:inspect 
 		{type? : Support type need to input, [method, file, class, env, action, controller]}
 		{--module= : The module to check}
 		{--export= : The module to check}

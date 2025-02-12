@@ -37,7 +37,7 @@ class RdsFieldExpired
     public function clearExpiredField(): bool
     {
         // 需要清理的field
-        $fields = sys_tag('wr-core')->zRangeByScore(PyCoreDef::ckRdsKeyFieldExpired(), 0, time());
+        $fields = sys_tag('weiran-core')->zRangeByScore(PyCoreDef::ckRdsKeyFieldExpired(), 0, time());
         $this->convertClearFields($fields);
         if ($fields) {
             sys_tag('wr-core')->zRem(PyCoreDef::ckRdsKeyFieldExpired(), $fields);
