@@ -60,7 +60,7 @@ class RdsPersist
      */
     public static function exec()
     {
-        $rdsDb = sys_tag('wr-core-persist');
+        $rdsDb = sys_tag('weiran-core-persist');
         // 所有新增数据的key
         $insertKeys = [];
         // 所有修改数据的key
@@ -165,7 +165,7 @@ class RdsPersist
     public static function update(string $table = '', array $where = [], array $update = [])
     {
         $rdsKey = PyCoreDef::ckPersistPersist($table . '_' . self::TYPE_UPDATE);
-        $rdsDb  = sys_tag('wr-core-persist');
+        $rdsDb  = sys_tag('weiran-core-persist');
 
         if (empty($where)) {
             return;
@@ -238,7 +238,7 @@ class RdsPersist
         foreach ($values as $value) {
             $arrValues[] = $value;
         }
-        sys_tag('wr-core-persist')->rPush($rdsKey, $arrValues);
+        sys_tag('weiran-core-persist')->rPush($rdsKey, $arrValues);
         return true;
     }
 
@@ -268,7 +268,7 @@ class RdsPersist
      */
     private static function execInsert(array $insert_keys = [])
     {
-        $rdsDb = sys_tag('wr-core-persist');
+        $rdsDb = sys_tag('weiran-core-persist');
         foreach ($insert_keys as $_key) {
 
             $rdsKey = PyCoreDef::ckPersistPersist($_key);
@@ -301,7 +301,7 @@ class RdsPersist
      */
     private static function execUpdate(array $update_keys = [])
     {
-        $rdsDb = sys_tag('wr-core-persist');
+        $rdsDb = sys_tag('weiran-core-persist');
         foreach ($update_keys as $_key) {
             $rdsKey = PyCoreDef::ckPersistPersist($_key);
             // 当前key的所有list数据

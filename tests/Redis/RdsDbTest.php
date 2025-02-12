@@ -80,14 +80,14 @@ class RdsDbTest extends RdsBaseTest
 
     public function testTag(): void
     {
-        $Tag = sys_tag('wr-core');
+        $Tag = sys_tag('weiran-core');
         $Tag->hSet('testing-tag-h', 'a', 1);
         $Tag->hMSet('testing-tag-h', [
             'b' => 2,
             'c' => 3,
         ]);
 
-        $all = RdsDb::instance()->hGetAll('tag:wr-core:testing-tag-h');
+        $all = RdsDb::instance()->hGetAll('tag:weiran-core:testing-tag-h');
         $this->assertCount(3, $all);
 
         $Tag->set('testing-tag-s', 'abc');

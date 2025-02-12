@@ -35,7 +35,7 @@ class RdsStore
                 $value = $value();
             }
             $cacheData['value'] = $value;
-            sys_tag('wr-core')->set(PyCoreDef::ckCacher($key), $cacheData);
+            sys_tag('weiran-core')->set(PyCoreDef::ckCacher($key), $cacheData);
 
             return $cacheData['value'];
         }
@@ -152,7 +152,7 @@ class RdsStore
             return true;
         }
         if (strtolower(config('cache.default')) === 'redis') {
-            $res    = sys_tag('wr-core-persist')->set(PyCoreDef::ckPersistRdsLock($key), 'atomic-' . Carbon::now()->timestamp, 'EX', $seconds, 'NX');
+            $res    = sys_tag('weiran-core-persist')->set(PyCoreDef::ckPersistRdsLock($key), 'atomic-' . Carbon::now()->timestamp, 'EX', $seconds, 'NX');
             return $res === false;
         }
         return true;

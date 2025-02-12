@@ -16,7 +16,7 @@ class OpTest extends TestCase
 
     public function testMail(): void
     {
-        $result = py_console()->call('wr-core:op', [
+        $result = py_console()->call('weiran-core:op', [
             'do' => 'mail',
         ]);
         $this->assertEquals(0, $result);

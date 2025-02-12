@@ -95,27 +95,27 @@ class InspectCommand extends Command
                 $this->inspectTrans();
                 break;
             default:
-                $this->call('wr-core:inspect', [
+                $this->call('weiran-core:inspect', [
                     'type' => 'file',
                 ]);
 
-                $this->call('wr-core:inspect', [
+                $this->call('weiran-core:inspect', [
                     'type' => 'class',
                 ]);
 
-                $this->call('wr-core:inspect', [
+                $this->call('weiran-core:inspect', [
                     'type' => 'util',
                 ]);
 
-                $this->call('wr-core:inspect', [
+                $this->call('weiran-core:inspect', [
                     'type' => 'validation',
                 ]);
 
-                $this->call('wr-core:inspect', [
+                $this->call('weiran-core:inspect', [
                     'type' => 'seo',
                 ]);
 
-                $this->call('wr-core:inspect', [
+                $this->call('weiran-core:inspect', [
                     'type' => 'perms',
                 ]);
                 break;
@@ -245,7 +245,7 @@ class InspectCommand extends Command
 
         $needModifies = [];
         if (!count($keys)) {
-            $this->info(sys_gen_mk('wr-core.inspect', 'util of ' . $slug . ' no keys to trans'));
+            $this->info(sys_gen_mk('weiran-core.inspect', 'util of ' . $slug . ' no keys to trans'));
         }
         else {
             foreach ($keys as $key) {

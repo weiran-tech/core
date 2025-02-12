@@ -29,7 +29,7 @@ class ModuleMenuTest extends TestCase
             'demo:web.search.index?name=abc_xxx',
             'demo:web.search.index/u_some?name=wolegeaa',
             'demo:web.search.index/u_some,other,some/my.?name=wolegeaa',
-            'wr-ad:backend.place.index/uname,ic?name=abc',
+            'weiran-ad:backend.place.index/uname,ic?name=abc',
         ];
         foreach ($routes as $item) {
             if (preg_match($regex, $item)) {

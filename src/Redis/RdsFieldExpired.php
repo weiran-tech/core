@@ -40,7 +40,7 @@ class RdsFieldExpired
         $fields = sys_tag('weiran-core')->zRangeByScore(PyCoreDef::ckRdsKeyFieldExpired(), 0, time());
         $this->convertClearFields($fields);
         if ($fields) {
-            sys_tag('wr-core')->zRem(PyCoreDef::ckRdsKeyFieldExpired(), $fields);
+            sys_tag('weiran-core')->zRem(PyCoreDef::ckRdsKeyFieldExpired(), $fields);
         }
 
         return true;
@@ -53,7 +53,7 @@ class RdsFieldExpired
                 $this->rds->disconnect();
                 $this->rds = null;
             }
-            sys_tag('wr-core')->disconnect();
+            sys_tag('weiran-core')->disconnect();
         } catch (Throwable $e) {
         }
     }
@@ -73,7 +73,7 @@ class RdsFieldExpired
         $index = implode(self::$stripTag, [$database, $key, $field, $type]);
 
         $expiredAt = Carbon::now()->timestamp + $expireTime;
-        sys_tag('wr-core')->zAdd(PyCoreDef::ckRdsKeyFieldExpired(), [
+        sys_tag('weiran-core')->zAdd(PyCoreDef::ckRdsKeyFieldExpired(), [
             $index => $expiredAt,
         ]);
         return true;

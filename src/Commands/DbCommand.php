@@ -23,7 +23,7 @@ class DbCommand extends Command
      * The name and signature of the console command.
      * @var string
      */
-    protected $signature = 'wr-core:db
+    protected $signature = 'weiran-core:db
 		{do : Action}
 	';
 
@@ -118,7 +118,7 @@ class DbCommand extends Command
             }
         });
 
-        sys_tag('wr-core')->hMSet(PyCoreDef::ckLangModels(), $seoDb);
+        sys_tag('weiran-core')->hMSet(PyCoreDef::ckLangModels(), $seoDb);
         $this->info('Cached models Success!');
     }
 

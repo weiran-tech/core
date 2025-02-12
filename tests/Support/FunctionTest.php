@@ -43,14 +43,14 @@ class FunctionTest extends TestCase
      */
     public function testSysCache(): void
     {
-        sys_tag('wr-core')->set('test.sys.cache', 'sys_cache');
-        $value = sys_tag('wr-core')->get('test.sys.cache');
+        sys_tag('weiran-core')->set('test.sys.cache', 'sys_cache');
+        $value = sys_tag('weiran-core')->get('test.sys.cache');
         $this->assertEquals('sys_cache', $value);
 
-        sys_tag('wr-core')->set('test.sys_cache', 5);
-        $this->assertEquals(5, sys_tag('wr-core')->get('test.sys_cache'));
-        sys_tag('wr-core')->clear();
-        $this->assertEquals(null, sys_tag('wr-core')->get('test.sys_cache'));
+        sys_tag('weiran-core')->set('test.sys_cache', 5);
+        $this->assertEquals(5, sys_tag('weiran-core')->get('test.sys_cache'));
+        sys_tag('weiran-core')->clear();
+        $this->assertEquals(null, sys_tag('weiran-core')->get('test.sys_cache'));
     }
 
     public function testSysDb(): void
