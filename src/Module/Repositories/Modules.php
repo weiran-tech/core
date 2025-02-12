@@ -31,7 +31,7 @@ class Modules extends Repository
     public function initialize(Collection $slugs)
     {
         $files       = app('files');
-        $this->items = sys_tag('wr-core')->remember(
+        $this->items = sys_tag('weiran-core')->remember(
             PyCoreDef::ckModule('module'),
             PyCoreDef::MIN_HALF_DAY * 60,
             function () use ($slugs, $files) {

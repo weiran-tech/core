@@ -26,7 +26,7 @@ trait RbacUserTrait
     {
         if ($this->permissions === null) {
             $cacheKey          = PyCoreDef::rbacCkUserRoles($this->{$this->primaryKey});
-            $this->permissions = Cache::of('wr-core-rbac')->remember($cacheKey, config('cache.ttl'), function () {
+            $this->permissions = Cache::of('weiran-core-rbac')->remember($cacheKey, config('cache.ttl'), function () {
                 return $this->roles()->get();
             });
         }
@@ -237,7 +237,7 @@ trait RbacUserTrait
 
     protected static function clearCachedRoles()
     {
-        Cache::of('wr-core-rbac')->delete(PyCoreDef::rbacCkUserRoles('*'));
+        Cache::of('weiran-core-rbac')->delete(PyCoreDef::rbacCkUserRoles('*'));
     }
 
     /**

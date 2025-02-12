@@ -25,7 +25,7 @@ class ModulesMenu extends Repository
     public function initialize(Collection $collection)
     {
         // check serve setting
-        $this->items = sys_tag('wr-core')->remember(
+        $this->items = sys_tag('weiran-core')->remember(
             PyCoreDef::ckModule('menu'),
             PyCoreDef::MIN_ONE_DAY * 60,
             function () use ($collection) {
