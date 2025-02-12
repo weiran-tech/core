@@ -26,7 +26,7 @@ class ModulesPath extends Repository
     public function initialize(Collection $collection)
     {
         // check serve setting
-        $this->items = sys_tag('py-core')->remember(
+        $this->items = sys_tag('wr-core')->remember(
             PyCoreDef::ckModule('path'),
             PyCoreDef::MIN_ONE_DAY * 60,
             function () use ($collection) {

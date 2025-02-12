@@ -20,7 +20,7 @@ class PermissionCommand extends Command
 {
     use CoreTrait;
 
-    protected $signature = 'py-core:permission
+    protected $signature = 'wr-core:permission
 		{do : The permission action to handle, allow <lists,init>}
 		';
 
@@ -85,9 +85,9 @@ class PermissionCommand extends Command
 
     private function init()
     {
-        sys_tag('py-core')->del(PyCoreDef::ckModule('module'));
+        sys_tag('wr-core')->del(PyCoreDef::ckModule('module'));
 
-        sys_tag('py-core-rbac')->clear();
+        sys_tag('wr-core-rbac')->clear();
 
         $this->permission->clearCachedPermissionNames();
 
@@ -112,7 +112,7 @@ class PermissionCommand extends Command
     private function checkMenus()
     {
         // clear cache
-        sys_tag('py-core')->clear();
+        sys_tag('wr-core')->clear();
 
         // calc
         $navigations = $this->coreModule()->menus();

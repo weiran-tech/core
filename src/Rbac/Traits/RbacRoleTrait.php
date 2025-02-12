@@ -23,7 +23,7 @@ trait RbacRoleTrait
     public function cachedPermissions()
     {
         $cacheKey = PyCoreDef::rbacCkRolePermissions($this->{$this->primaryKey});
-        return sys_tag('py-core-rbac')->remember($cacheKey, config('cache.ttl'), function () {
+        return sys_tag('wr-core-rbac')->remember($cacheKey, config('cache.ttl'), function () {
             return $this->perms()->get();
         });
     }
@@ -225,12 +225,12 @@ trait RbacRoleTrait
 
     protected static function clearCachedPermissions(): void
     {
-        sys_tag('py-core-rbac')->clear(PyCoreDef::rbacCkRolePermissions('*'));
+        sys_tag('wr-core-rbac')->clear(PyCoreDef::rbacCkRolePermissions('*'));
     }
 
     protected static function clearCachedPivotPermissions($role_id): void
     {
-        sys_tag('py-core-rbac')->clear(PyCoreDef::rbacCkRolePermissions($role_id));
+        sys_tag('wr-core-rbac')->clear(PyCoreDef::rbacCkRolePermissions($role_id));
     }
 
     /**

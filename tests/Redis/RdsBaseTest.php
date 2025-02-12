@@ -18,7 +18,7 @@ class RdsBaseTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->rds = sys_tag('py-core:testing');
+        $this->rds = sys_tag('wr-core:testing');
     }
 
     /**

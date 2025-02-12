@@ -37,10 +37,10 @@ class RdsFieldExpired
     public function clearExpiredField(): bool
     {
         // 需要清理的field
-        $fields = sys_tag('py-core')->zRangeByScore(PyCoreDef::ckRdsKeyFieldExpired(), 0, time());
+        $fields = sys_tag('wr-core')->zRangeByScore(PyCoreDef::ckRdsKeyFieldExpired(), 0, time());
         $this->convertClearFields($fields);
         if ($fields) {
-            sys_tag('py-core')->zRem(PyCoreDef::ckRdsKeyFieldExpired(), $fields);
+            sys_tag('wr-core')->zRem(PyCoreDef::ckRdsKeyFieldExpired(), $fields);
         }
 
         return true;
@@ -53,7 +53,7 @@ class RdsFieldExpired
                 $this->rds->disconnect();
                 $this->rds = null;
             }
-            sys_tag('py-core')->disconnect();
+            sys_tag('wr-core')->disconnect();
         } catch (Throwable $e) {
         }
     }
@@ -73,7 +73,7 @@ class RdsFieldExpired
         $index = implode(self::$stripTag, [$database, $key, $field, $type]);
 
         $expiredAt = Carbon::now()->timestamp + $expireTime;
-        sys_tag('py-core')->zAdd(PyCoreDef::ckRdsKeyFieldExpired(), [
+        sys_tag('wr-core')->zAdd(PyCoreDef::ckRdsKeyFieldExpired(), [
             $index => $expiredAt,
         ]);
         return true;

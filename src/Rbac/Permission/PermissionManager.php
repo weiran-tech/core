@@ -128,7 +128,7 @@ class PermissionManager
     {
         static $permissions;
         if (!$permissions) {
-            $permissions = sys_tag('py-core')->remember(PyCoreDef::ckPermissionKv(), config('cache.ttl', 600), function () {
+            $permissions = sys_tag('wr-core')->remember(PyCoreDef::ckPermissionKv(), config('cache.ttl', 600), function () {
                 $data = collect();
                 $this->corePermission()->permissions()->each(function (Permission $permission) use ($data) {
                     $data->put($permission->key(), $permission->description());
@@ -148,7 +148,7 @@ class PermissionManager
      */
     public function cachedPermissionNames(): Collection
     {
-        return sys_tag('py-core')->remember(PyCoreDef::ckPermissionNames(), config('cache.ttl', 600), function () {
+        return sys_tag('wr-core')->remember(PyCoreDef::ckPermissionNames(), config('cache.ttl', 600), function () {
             return $this->permissions()->keys();
         });
     }
@@ -159,6 +159,6 @@ class PermissionManager
      */
     public function clearCachedPermissionNames(): void
     {
-        sys_tag('py-core')->del(PyCoreDef::ckPermissionNames());
+        sys_tag('wr-core')->del(PyCoreDef::ckPermissionNames());
     }
 }

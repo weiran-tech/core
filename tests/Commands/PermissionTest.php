@@ -16,7 +16,7 @@ class PermissionTest extends TestCase
 
     public function testList()
     {
-        $result = py_console()->call('py-core:permission', [
+        $result = py_console()->call('wr-core:permission', [
             'do' => 'list',
         ]);
         $this->assertEquals(0, $result);
@@ -24,7 +24,7 @@ class PermissionTest extends TestCase
 
     public function testInit()
     {
-        $result = py_console()->call('py-core:permission', [
+        $result = py_console()->call('wr-core:permission', [
             'do' => 'init',
         ]);
         $this->assertEquals(0, $result);

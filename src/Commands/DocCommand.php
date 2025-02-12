@@ -15,7 +15,7 @@ use Symfony\Component\Process\Process;
 class DocCommand extends Command
 {
 
-    protected $signature = 'py-core:doc
+    protected $signature = 'wr-core:doc
 		{type : Document type to run. [api]}
 	';
 

@@ -24,7 +24,7 @@ class ModulesHook extends Repository
      */
     public function initialize(Collection $data)
     {
-        $this->items = sys_tag('py-core')->remember(
+        $this->items = sys_tag('wr-core')->remember(
             PyCoreDef::ckModule('hook'),
             PyCoreDef::MIN_HALF_DAY * 60,
             function () use ($data) {

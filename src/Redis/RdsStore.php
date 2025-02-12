@@ -28,14 +28,14 @@ class RdsStore
         $cacheData = [
             'expired' => Carbon::now()->addSeconds($second)->timestamp,
         ];
-        $fetchData = sys_tag('py-core')->get(PyCoreDef::ckCacher($key));
+        $fetchData = sys_tag('wr-core')->get(PyCoreDef::ckCacher($key));
         // 无数据 / 已过期
         if (!$fetchData || $fetchData['expired'] <= Carbon::now()->timestamp) {
             if ($value instanceof Closure) {
                 $value = $value();
             }
             $cacheData['value'] = $value;
-            sys_tag('py-core')->set(PyCoreDef::ckCacher($key), $cacheData);
+            sys_tag('wr-core')->set(PyCoreDef::ckCacher($key), $cacheData);
 
             return $cacheData['value'];
         }
@@ -152,7 +152,7 @@ class RdsStore
             return true;
         }
         if (strtolower(config('cache.default')) === 'redis') {
-            $res    = sys_tag('py-core-persist')->set(PyCoreDef::ckPersistRdsLock($key), 'atomic-' . Carbon::now()->timestamp, 'EX', $seconds, 'NX');
+            $res    = sys_tag('wr-core-persist')->set(PyCoreDef::ckPersistRdsLock($key), 'atomic-' . Carbon::now()->timestamp, 'EX', $seconds, 'NX');
             return $res === false;
         }
         return true;

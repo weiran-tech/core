@@ -17,7 +17,7 @@ class ClearCacheListener
      */
     public function handle(PoppyOptimized $event): void
     {
-        sys_tag('py-core')->clear();
+        sys_tag('wr-core')->clear();
 
         // clear console logs
         $logs  = glob(storage_path('logs/console-*.log'));

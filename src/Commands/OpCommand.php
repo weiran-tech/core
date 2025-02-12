@@ -17,7 +17,7 @@ class OpCommand extends Command
     /**
      * @var string 名称
      */
-    protected $signature = 'py-core:op
+    protected $signature = 'wr-core:op
         {do : Maintain type}
         {--title= : Mail title}
         {--content= : Mail content}
@@ -52,7 +52,7 @@ class OpCommand extends Command
                 }
                 break;
             case 'clear':
-                sys_tag('py-core')->clear();
+                sys_tag('wr-core')->clear();
                 $this->info(sys_gen_mk(self::class, 'Clear Core Cache'));
                 break;
             default:

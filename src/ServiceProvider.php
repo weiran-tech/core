@@ -28,7 +28,7 @@ class ServiceProvider extends WeiranServiceProvider
      */
     public function boot(): void
     {
-        parent::boot('poppy.core');
+        parent::boot('weiran.core');
 
         // 注册 api 文档配置
         $this->publishes([

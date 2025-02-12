@@ -29,7 +29,7 @@ class InspectCommand extends Command
      * The name and signature of the console command.
      * @var string
      */
-    protected $signature = 'py-core:inspect 
+    protected $signature = 'wr-core:inspect 
 		{type? : Support type need to input, [method, file, class, env, action, controller]}
 		{--module= : The module to check}
 		{--export= : The module to check}
@@ -95,27 +95,27 @@ class InspectCommand extends Command
                 $this->inspectTrans();
                 break;
             default:
-                $this->call('py-core:inspect', [
+                $this->call('wr-core:inspect', [
                     'type' => 'file',
                 ]);
 
-                $this->call('py-core:inspect', [
+                $this->call('wr-core:inspect', [
                     'type' => 'class',
                 ]);
 
-                $this->call('py-core:inspect', [
+                $this->call('wr-core:inspect', [
                     'type' => 'util',
                 ]);
 
-                $this->call('py-core:inspect', [
+                $this->call('wr-core:inspect', [
                     'type' => 'validation',
                 ]);
 
-                $this->call('py-core:inspect', [
+                $this->call('wr-core:inspect', [
                     'type' => 'seo',
                 ]);
 
-                $this->call('py-core:inspect', [
+                $this->call('wr-core:inspect', [
                     'type' => 'perms',
                 ]);
                 break;
@@ -245,7 +245,7 @@ class InspectCommand extends Command
 
         $needModifies = [];
         if (!count($keys)) {
-            $this->info(sys_gen_mk('py-core.inspect', 'util of ' . $slug . ' no keys to trans'));
+            $this->info(sys_gen_mk('wr-core.inspect', 'util of ' . $slug . ' no keys to trans'));
         }
         else {
             foreach ($keys as $key) {
