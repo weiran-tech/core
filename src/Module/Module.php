@@ -23,8 +23,8 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
     public function __construct($slug)
     {
         $this->attributes = [
-            'directory' => poppy_path($slug),
-            'namespace' => poppy_class($slug),
+            'directory' => weiran_path($slug),
+            'namespace' => weiran_class($slug),
             'slug'      => $slug,
             'enabled'   => app('weiran')->isEnabled($slug),
         ];

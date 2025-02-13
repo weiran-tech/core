@@ -59,12 +59,12 @@ class DbCommand extends Command
     {
         $modelDb = [];
         app('weiran')->enabled()->each(function ($module, $slug) use (&$modelDb) {
-            $path  = poppy_path($slug, '/src/Models/*.php');
+            $path  = weiran_path($slug, '/src/Models/*.php');
             $files = glob($path);
             foreach ($files as $file) {
                 if (preg_match('/Models\/(?<model>[A-Za-z]+)\.php/', $file, $matches)) {
-                    $classes = poppy_class($slug, 'Models\\' . $matches['model']);
-                    $key     = poppy_friendly($classes);
+                    $classes = weiran_class($slug, 'Models\\' . $matches['model']);
+                    $key     = weiran_friendly($classes);
 
                     $modelDb[] = [
                         'table'   => (new $classes)->getTable(),
@@ -82,13 +82,13 @@ class DbCommand extends Command
     {
         $seoDb = [];
         app('weiran')->enabled()->each(function ($module, $slug) use (&$seoDb) {
-            $path  = poppy_path($slug, '/src/Models/*.php');
+            $path  = weiran_path($slug, '/src/Models/*.php');
             $files = glob($path);
             try {
                 foreach ($files as $file) {
                     if (preg_match('/Models\/(?<model>[A-Za-z]+)\.php/', $file, $matches)) {
                         $key        = Str::snake($matches['model']);
-                        $className  = poppy_class($slug, 'Models\\' . $matches['model']);
+                        $className  = weiran_class($slug, 'Models\\' . $matches['model']);
                         $ref        = new ReflectionClass($className);
                         $docComment = $ref->getDocComment();
                         if (!$docComment) {

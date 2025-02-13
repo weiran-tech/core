@@ -199,7 +199,7 @@ class InspectCommand extends Command
      */
     private function inspectUtil($slug): void
     {
-        $directory = poppy_path($slug, 'src/Models/Policies');
+        $directory = weiran_path($slug, 'src/Models/Policies');
         $keys      = [];
         if (app('files')->exists($directory)) {
             $files = app('files')->files($directory);
@@ -230,7 +230,7 @@ class InspectCommand extends Command
         }
 
 
-        $directory = poppy_path($slug, 'src/Models');
+        $directory = weiran_path($slug, 'src/Models');
         if (app('files')->exists($directory)) {
             $files = app('files')->files($directory);
             foreach ($files as $file) {
@@ -320,7 +320,7 @@ class InspectCommand extends Command
         $table      = [];
         $classTable = [];
 
-        $files = app('files')->allFiles(poppy_path($slug, 'src'));
+        $files = app('files')->allFiles(weiran_path($slug, 'src'));
         foreach ($files as $file) {
             $pathName = $file->getPathname();
 
@@ -537,7 +537,7 @@ class InspectCommand extends Command
      */
     private function inspectFileName($slug): void
     {
-        $folders = glob(poppy_path($slug) . '/src/{Events,Listeners,Models}', GLOB_BRACE);
+        $folders = glob(weiran_path($slug) . '/src/{Events,Listeners,Models}', GLOB_BRACE);
 
         if (!count($folders)) {
             $this->warn('slug `' . $slug . '` has no file to check name');
@@ -598,7 +598,7 @@ class InspectCommand extends Command
     private function inspectController($slug): void
     {
         $table = [];
-        $files = app('files')->allFiles(poppy_path($slug, 'src'));
+        $files = app('files')->allFiles(weiran_path($slug, 'src'));
         foreach ($files as $file) {
             $pathName = $file->getPathname();
             // 排除指定的类
@@ -677,7 +677,7 @@ class InspectCommand extends Command
     private function inspectAction($slug): void
     {
         $table     = [];
-        $directory = poppy_path($slug, 'src/Action');
+        $directory = weiran_path($slug, 'src/Action');
         if (!app('files')->exists($directory)) {
             $this->info("{$slug} has no action.");
             return;
@@ -693,7 +693,7 @@ class InspectCommand extends Command
 
             $action = $match[1] ?? '';
 
-            $className = poppy_class($slug, 'Action\\' . $action);
+            $className = weiran_class($slug, 'Action\\' . $action);
 
             try {
                 $refection = new ReflectionClass($className);
@@ -766,15 +766,15 @@ class InspectCommand extends Command
 
         $permissions = [];
         app('weiran')->enabled()->each(function ($module, $slug) use (&$permissions) {
-            $directory = poppy_path($slug, 'src/Http/Request');
+            $directory = weiran_path($slug, 'src/Http/Request');
             if (app('files')->exists($directory)) {
                 $files = app('files')->allFiles($directory);
                 foreach ($files as $file) {
                     $pathName = $file->getPathname();
 
-                    $path = str_replace('/', '\\', substr(Str::after($pathName, poppy_path($slug, 'src/')), 0, -4));
+                    $path = str_replace('/', '\\', substr(Str::after($pathName, weiran_path($slug, 'src/')), 0, -4));
 
-                    $className = poppy_class($slug, $path);
+                    $className = weiran_class($slug, $path);
 
                     try {
                         $refection = new ReflectionClass($className);
@@ -791,15 +791,15 @@ class InspectCommand extends Command
             }
 
 
-            $directory = poppy_path($slug, 'src/Models/Policies');
+            $directory = weiran_path($slug, 'src/Models/Policies');
             if (app('files')->exists($directory)) {
                 $files = app('files')->allFiles($directory);
                 foreach ($files as $file) {
                     $pathName = $file->getPathname();
 
-                    $path = str_replace('/', '\\', substr(Str::after($pathName, poppy_path($slug, 'src/')), 0, -4));
+                    $path = str_replace('/', '\\', substr(Str::after($pathName, weiran_path($slug, 'src/')), 0, -4));
 
-                    $className = poppy_class($slug, $path);
+                    $className = weiran_class($slug, $path);
 
                     try {
                         $refection = new ReflectionClass($className);
