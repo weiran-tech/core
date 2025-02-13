@@ -22,7 +22,7 @@ class MailTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->mail = config('poppy.core.op_mail');
+        $this->mail = config('weiran.core.op_mail');
         if (!$this->mail) {
             throw new ApplicationException('配置 `poppy.core.op_mail` 尚未设置');
         }

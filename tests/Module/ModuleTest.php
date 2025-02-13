@@ -64,10 +64,10 @@ class ModuleTest extends TestCase
 
     public function testGet(): void
     {
-        $module = $this->coreModule()->get('poppy.core');
+        $module = $this->coreModule()->get('weiran.core');
         $this->assertTrue($module instanceof Module);
 
-        $exists = $this->coreModule()->has('poppy.core');
+        $exists = $this->coreModule()->has('weiran.core');
         $this->assertTrue($exists);
     }
 }

@@ -18,7 +18,7 @@ class ModuleServiceProvider extends ServiceProvider implements DeferrableProvide
      */
     public function register()
     {
-        $this->app->singleton('poppy.core.module', function () {
+        $this->app->singleton('weiran.core.module', function () {
             return new ModuleManager();
         });
     }

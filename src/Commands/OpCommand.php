@@ -40,12 +40,12 @@ class OpCommand extends Command
                 $title   = $this->option('title') ?: 'No Title';
                 $content = $this->option('content') ?: 'No Content';
                 $file    = $this->option('file');
-                if (!config('poppy.core.op_mail')) {
+                if (!config('weiran.core.op_mail')) {
                     $this->error(sys_gen_mk(self::class, 'Config `poppy.core.op_mail` not set. Can not send Op Mail'));
                     return 1;
                 }
                 try {
-                    Mail::to(config('poppy.core.op_mail'))->send(new MaintainMail($title, $content, $file));
+                    Mail::to(config('weiran.core.op_mail'))->send(new MaintainMail($title, $content, $file));
                 } catch (Throwable $e) {
                     $this->error(sys_gen_mk(self::class, $e->getMessage()));
                     return 1;

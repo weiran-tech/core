@@ -272,7 +272,7 @@ class ModulesMenu extends Repository
 
         unset($group['route_param'], $group['param']);
 
-        $routeHide = (array) config('poppy.core.route_hide');
+        $routeHide = (array) config('weiran.core.route_hide');
         foreach ($routeHide as $hr) {
             if (Str::is($hr, $route) || Str::is($hr, $url)) {
                 return null;

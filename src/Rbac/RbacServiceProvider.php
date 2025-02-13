@@ -47,15 +47,15 @@ class RbacServiceProvider extends ServiceProvider
      */
     private function registerRbac()
     {
-        $this->app->bind('poppy.core.rbac', function ($app) {
+        $this->app->bind('weiran.core.rbac', function ($app) {
             return new Rbac($app);
         });
-        $this->app->alias('poppy.core.rbac', Rbac::class);
+        $this->app->alias('weiran.core.rbac', Rbac::class);
     }
 
     private function registerPermission()
     {
-        $this->app->singleton('poppy.core.permission', function ($app) {
+        $this->app->singleton('weiran.core.permission', function ($app) {
             return new PermissionManager();
         });
     }

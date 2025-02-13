@@ -17,10 +17,10 @@ trait RbacPermissionTrait
      */
     public function roles(): BelongsToMany
     {
-        $roleFk              = config('poppy.core.rbac.role_fk');
-        $permissionFk        = config('poppy.core.rbac.permission_fk');
-        $roleModel           = config('poppy.core.rbac.role');
-        $rolePermissionModel = config('poppy.core.rbac.role_permission');
+        $roleFk              = config('weiran.core.rbac.role_fk');
+        $permissionFk        = config('weiran.core.rbac.permission_fk');
+        $roleModel           = config('weiran.core.rbac.role');
+        $rolePermissionModel = config('weiran.core.rbac.role_permission');
         return $this->belongsToMany(
             $roleModel,
             (new $rolePermissionModel)->getTable(),

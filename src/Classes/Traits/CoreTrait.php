@@ -15,7 +15,7 @@ trait CoreTrait
      */
     public function coreModule(): ModuleManager
     {
-        return app('poppy.core.module');
+        return app('weiran.core.module');
     }
 
     /**
@@ -24,6 +24,6 @@ trait CoreTrait
      */
     public function corePermission(): PermissionManager
     {
-        return app('poppy.core.permission');
+        return app('weiran.core.permission');
     }
 }

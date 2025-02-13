@@ -18,7 +18,7 @@ class RbacHelper
      */
     public static function permission(string $type): Collection
     {
-        $permissionClass = config('poppy.core.rbac.permission');
+        $permissionClass = config('weiran.core.rbac.permission');
         $permission      = (new $permissionClass)->where('type', $type)->get();
         $collection      = new Collection($permission);
 

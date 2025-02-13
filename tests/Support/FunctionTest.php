@@ -19,7 +19,7 @@ class FunctionTest extends TestCase
     {
         for ($i = 0; $i <= 2; $i++) {
             $timestamp = Carbon::now()->timestamp;
-            $core      = sys_cacher('poppy.core.action.verification-clear', function () {
+            $core      = sys_cacher('weiran.core.action.verification-clear', function () {
                 return Carbon::now()->timestamp;
             }, 2);
             if ($i === 0) {

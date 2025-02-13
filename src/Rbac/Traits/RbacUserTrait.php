@@ -71,9 +71,9 @@ trait RbacUserTrait
      */
     public function roles(): BelongsToMany
     {
-        $roleModel = config('poppy.core.rbac.role');
-        $accountFk = config('poppy.core.rbac.account_fk');
-        $roleFk    = config('poppy.core.rbac.role_fk');
+        $roleModel = config('weiran.core.rbac.role');
+        $accountFk = config('weiran.core.rbac.account_fk');
+        $roleFk    = config('weiran.core.rbac.role_fk');
         return $this->belongsToMany(
             $roleModel,
             $this->getRoleUserTable(),
@@ -245,7 +245,7 @@ trait RbacUserTrait
      */
     private function getRoleUserTable(): string
     {
-        $roleAccountModel = config('poppy.core.rbac.role_account');
+        $roleAccountModel = config('weiran.core.rbac.role_account');
         return (new $roleAccountModel)->getTable();
     }
 }

@@ -216,7 +216,7 @@ class ModulesPath extends Repository
                     throw new ModuleException("Error define path at `{$slug}` on {$submenu['title']}, must contain type and route");
                 }
                 $route     = $mt[1];
-                $routeHide = (array) config('poppy.core.route_hide');
+                $routeHide = (array) config('weiran.core.route_hide');
                 if (in_array($route, $routeHide)) {
                     return null;
                 }

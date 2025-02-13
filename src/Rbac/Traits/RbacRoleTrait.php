@@ -76,10 +76,10 @@ trait RbacRoleTrait
      */
     public function users(): BelongsToMany
     {
-        $accountClass     = config('poppy.core.rbac.account');
-        $roleAccountClass = config('poppy.core.rbac.role_account');
-        $roleFk           = config('poppy.core.rbac.role_fk');
-        $accountFk        = config('poppy.core.rbac.account_fk');
+        $accountClass     = config('weiran.core.rbac.account');
+        $roleAccountClass = config('weiran.core.rbac.role_account');
+        $roleFk           = config('weiran.core.rbac.role_fk');
+        $accountFk        = config('weiran.core.rbac.account_fk');
         return $this->belongsToMany(
             $accountClass,
             (new $roleAccountClass)->getTable(),
@@ -95,9 +95,9 @@ trait RbacRoleTrait
      */
     public function perms(): BelongsToMany
     {
-        $permissionClass = config('poppy.core.rbac.permission');
-        $roleFk          = config('poppy.core.rbac.role_fk');
-        $permissionFk    = config('poppy.core.rbac.permission_fk');
+        $permissionClass = config('weiran.core.rbac.permission');
+        $roleFk          = config('weiran.core.rbac.role_fk');
+        $permissionFk    = config('weiran.core.rbac.permission_fk');
         return $this->belongsToMany(
             $permissionClass,
             $this->getPermissionRoleTable(),
@@ -238,7 +238,7 @@ trait RbacRoleTrait
      */
     private function getPermissionRoleTable(): string
     {
-        $permissionRole = config('poppy.core.rbac.role_permission');
+        $permissionRole = config('weiran.core.rbac.role_permission');
         return (new $permissionRole)->getTable();
     }
 }
