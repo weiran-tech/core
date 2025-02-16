@@ -16,7 +16,7 @@ class PermissionFacade extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'poppy.core.permission';
+        return 'weiran.core.permission';
     }
 }
 

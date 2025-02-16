@@ -16,7 +16,7 @@ class RbacFacade extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'poppy.core.rbac';
+        return 'weiran.core.rbac';
     }
 }
 

@@ -29,7 +29,7 @@ class InspectCommand extends Command
      * The name and signature of the console command.
      * @var string
      */
-    protected $signature = 'weiran-core:inspect 
+    protected $signature = 'weiran:core:inspect 
 		{type? : Support type need to input, [method, file, class, env, action, controller]}
 		{--module= : The module to check}
 		{--export= : The module to check}
@@ -95,27 +95,27 @@ class InspectCommand extends Command
                 $this->inspectTrans();
                 break;
             default:
-                $this->call('weiran-core:inspect', [
+                $this->call('weiran:core:inspect', [
                     'type' => 'file',
                 ]);
 
-                $this->call('weiran-core:inspect', [
+                $this->call('weiran:core:inspect', [
                     'type' => 'class',
                 ]);
 
-                $this->call('weiran-core:inspect', [
+                $this->call('weiran:core:inspect', [
                     'type' => 'util',
                 ]);
 
-                $this->call('weiran-core:inspect', [
+                $this->call('weiran:core:inspect', [
                     'type' => 'validation',
                 ]);
 
-                $this->call('weiran-core:inspect', [
+                $this->call('weiran:core:inspect', [
                     'type' => 'seo',
                 ]);
 
-                $this->call('weiran-core:inspect', [
+                $this->call('weiran:core:inspect', [
                     'type' => 'perms',
                 ]);
                 break;
@@ -213,8 +213,8 @@ class InspectCommand extends Command
                         if (in_array($name, ['after', 'before'])) {
                             continue;
                         }
-                        if (Str::startsWith($slug, 'poppy')) {
-                            $prefix = 'py-' . Str::after($slug, 'poppy.');
+                        if (Str::startsWith($slug, 'weiran')) {
+                            $prefix = 'py-' . Str::after($slug, 'weiran.');
                         }
                         else {
                             $prefix = Str::after($slug, 'module.');
@@ -235,7 +235,7 @@ class InspectCommand extends Command
             $files = app('files')->files($directory);
             foreach ($files as $file) {
                 $model  = Str::before($file->getFilename(), '.php');
-                $prefix = Str::startsWith($slug, 'poppy') ? 'py-' . Str::after($slug, 'poppy.') : Str::after($slug, 'module.');
+                $prefix = Str::startsWith($slug, 'weiran') ? 'weiran-' . Str::after($slug, 'weiran.') : Str::after($slug, 'module.');
                 $keys[] = $prefix . '::util.classes.models.' . Str::snake($model);
             }
         }
@@ -762,7 +762,7 @@ class InspectCommand extends Command
     private function inspectPerms(): void
     {
 
-        Artisan::call('poppy:optimize');
+        Artisan::call('weiran:optimize');
 
         $permissions = [];
         app('weiran')->enabled()->each(function ($module, $slug) use (&$permissions) {
@@ -856,9 +856,9 @@ class InspectCommand extends Command
 
     /**
      * 生成类名
-     * @param string $module        模块
+     * @param string $module 模块
      * @param string $relative_path 相对路径
-     * @param string $file_name     文件名
+     * @param string $file_name 文件名
      * @return string
      */
     private function className(string $module, string $relative_path, string $file_name): string

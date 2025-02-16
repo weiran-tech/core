@@ -47,7 +47,7 @@ class ModuleTest extends TestCase
     public function testModules(): void
     {
         $repo = $this->coreModule()->modules();
-        $this->assertTrue(Arr::exists($repo->toArray(), 'poppy.core'), '模块中没有发现 poppy.core 模块');
+        $this->assertTrue(Arr::exists($repo->toArray(), 'weiran.core'), '模块中没有发现 weiran.core 模块');
     }
 
     public function testServices(): void

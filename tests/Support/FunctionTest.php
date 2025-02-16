@@ -55,7 +55,7 @@ class FunctionTest extends TestCase
 
     public function testSysDb(): void
     {
-        Artisan::call('poppy:optimize');
+        Artisan::call('weiran:optimize');
         $dbClass = sys_db(PamAccount::class);
         $dbTable = sys_db('pam_account');
 

@@ -33,7 +33,11 @@ class ServiceProvider extends WeiranServiceProvider
         // 注册 api 文档配置
         $this->publishes([
             __DIR__ . '/../resources/config/doctum-config.php' => storage_path('doctum/config.php'),
-        ], 'poppy');
+        ], 'weiran');
+
+        $this->publishes([
+            __DIR__ . '/../resources/swagger-ui/' => public_path('docs/swagger-ui/'),
+        ], 'weiran-assets');
     }
 
     /**
@@ -43,7 +47,7 @@ class ServiceProvider extends WeiranServiceProvider
     public function register(): void
     {
         // 合并配置
-        $this->mergeConfigFrom(__DIR__ . '/../resources/config/core.php', 'poppy.core');
+        $this->mergeConfigFrom(__DIR__ . '/../resources/config/core.php', 'weiran.core');
 
         $this->app->register(Module\ModuleServiceProvider::class);
         $this->app->register(Rbac\RbacServiceProvider::class);

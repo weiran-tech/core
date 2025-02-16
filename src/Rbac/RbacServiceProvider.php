@@ -34,11 +34,11 @@ class RbacServiceProvider extends ServiceProvider
     /**
      * @return array
      */
-    public function provides()
+    public function provides():array
     {
         return [
-            'poppy.core.rbac',
-            'poppy.core.permission',
+            'weiran.core.rbac',
+            'weiran.core.permission',
         ];
     }
 

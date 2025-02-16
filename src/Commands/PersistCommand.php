@@ -6,8 +6,8 @@ namespace Weiran\Core\Commands;
 
 
 use Illuminate\Console\Command;
-use Weiran\Core\Redis\RdsPersist;
 use Throwable;
+use Weiran\Core\Redis\RdsPersist;
 
 /**
  * Redis 持久化写入到数据库
@@ -18,7 +18,7 @@ class PersistCommand extends Command
      * The name and signature of the console command.
      * @var string
      */
-    protected $signature = 'weiran-core:persist
+    protected $signature = 'weiran:core:persist
 		{table : Table to exec. [pam_log...|all]}
 	';
 

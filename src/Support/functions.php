@@ -37,7 +37,7 @@ if (!function_exists('sys_tag')) {
     /**
      * 获取 Tag 下缓存标记
      * @param string $tag 标签
-     * @param string $db  数据库名称
+     * @param string $db 数据库名称
      * @return RdsDb
      * @since 4.1
      */
@@ -67,7 +67,7 @@ if (!function_exists('sys_db')) {
     /**
      * 模型缓存
      * @param string       $table 数据表
-     * @param array|string $keys  密钥
+     * @param array|string $keys 密钥
      * @return array|string
      */
     function sys_db(string $table, $keys = [])
@@ -81,7 +81,7 @@ if (!function_exists('sys_db')) {
         if (!$cache) {
             $cache = sys_tag('weiran-core')->hGetAll(PyCoreDef::ckLangModels());
             if (!$cache) {
-                app(ConsoleKernelContract::class)->call('weiran-core:db', [
+                app(ConsoleKernelContract::class)->call('weiran:core:db', [
                     'do' => 'fields',
                 ]);
                 $cache = sys_tag('weiran-core')->hGetAll(PyCoreDef::ckLangModels());
@@ -121,6 +121,7 @@ if (!function_exists('sys_gen_mk')) {
      * @param mixed  $info
      * @param bool   $request
      * @return string
+     * @throws JsonException
      */
     function sys_gen_mk(string $tag, $info, bool $request = false): string
     {
@@ -142,7 +143,7 @@ if (!function_exists('sys_gen_mk')) {
 
         $append = function ($info) use ($request, $req, $jsonMark, $tag) {
             try {
-                $je = json_encode($req, $jsonMark);
+                $je = json_encode($req, JSON_THROW_ON_ERROR | $jsonMark);
             } catch (JsonException $e) {
                 $je = '';
             }
@@ -195,8 +196,8 @@ if (!function_exists('sys_gen_mk')) {
 if (!function_exists('sys_error')) {
     /**
      * 用于记录系统异常信息, 通常需要开启请求
-     * @param string $tag          标签或者 class 名称
-     * @param mixed  $info         需要输出的信息
+     * @param string $tag 标签或者 class 名称
+     * @param mixed  $info 需要输出的信息
      * @param bool   $with_request 是否打印请求数据
      */
     function sys_error(string $tag, $info, bool $with_request = false)
@@ -208,8 +209,8 @@ if (!function_exists('sys_error')) {
 if (!function_exists('sys_debug')) {
     /**
      * 4.1 更改为展示 debug 信息, 不区分环境, 用户追踪系统中的问题
-     * @param string $tag          标签或者 class 名称
-     * @param mixed  $info         需要输出的信息
+     * @param string $tag 标签或者 class 名称
+     * @param mixed  $info 需要输出的信息
      * @param bool   $with_request 是否打印请求数据
      */
     function sys_debug(string $tag, $info, bool $with_request = false)
@@ -222,8 +223,8 @@ if (!function_exists('sys_debug')) {
 if (!function_exists('sys_info')) {
     /**
      * 记录信息, 一般用户信息追溯
-     * @param string $tag          标签或者 class 名称
-     * @param mixed  $info         需要输出的信息
+     * @param string $tag 标签或者 class 名称
+     * @param mixed  $info 需要输出的信息
      * @param bool   $with_request 是否打印请求数据
      */
     function sys_info(string $tag, $info, bool $with_request = false)
@@ -235,8 +236,8 @@ if (!function_exists('sys_info')) {
 if (!function_exists('sys_warning')) {
     /**
      * 警告信息, 一般用户 deprecated 的提示
-     * @param string $tag          标签或者 class 名称
-     * @param mixed  $info         需要输出的信息
+     * @param string $tag 标签或者 class 名称
+     * @param mixed  $info 需要输出的信息
      * @param bool   $with_request 是否打印请求数据
      * @since 4.1
      */
@@ -249,8 +250,8 @@ if (!function_exists('sys_warning')) {
 if (!function_exists('sys_emergency')) {
     /**
      * 紧急的信息, 用于提示错误内容
-     * @param string $tag          标签或者 class 名称
-     * @param mixed  $info         需要输出的信息
+     * @param string $tag 标签或者 class 名称
+     * @param mixed  $info 需要输出的信息
      * @param bool   $with_request 是否打印请求数据
      * @since 4.1
      */

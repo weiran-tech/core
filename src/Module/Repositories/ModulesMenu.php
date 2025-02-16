@@ -68,7 +68,7 @@ class ModulesMenu extends Repository
                             }
 
                             [$key, $name] = explode('||', $injection);
-                            // poppy.mgr-page/backend
+                            // weiran.mgr-page/backend
 
                             if ($reCollection->offsetExists($key)) {
                                 $item                                = $reCollection->get($key);

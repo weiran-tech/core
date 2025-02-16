@@ -13,6 +13,9 @@
         "ext-bcmath": "*",
         "symfony/yaml": "^6.2"
     },
+    "require-dev": {
+        "zircote/swagger-php": "5.*"
+    },
     "autoload": {
         "psr-4": {
             "Weiran\\Core\\": "src/"

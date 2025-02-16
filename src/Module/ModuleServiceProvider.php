@@ -28,6 +28,6 @@ class ModuleServiceProvider extends ServiceProvider implements DeferrableProvide
      */
     public function provides(): array
     {
-        return ['poppy.core.module'];
+        return ['weiran.core.module'];
     }
 }

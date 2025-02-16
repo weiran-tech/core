@@ -22,15 +22,16 @@ class ServiceFactory
 
     /**
      * 钩子
-     * @param string $id     钩子标示符
+     * @param string $id 钩子标示符
      * @param array  $params 参数
      * @return null
+     * @throws ApplicationException
      */
     public function parse(string $id, array $params = [])
     {
         $service = $this->coreModule()->services()->get($id);
         if (!$service) {
-            return null;
+            throw new ApplicationException('Hook `' . $id . '` not exist!');
         }
         $hooks  = $this->coreModule()->hooks()->get($id);
         $method = 'parse' . Str::studly($service['type']);
@@ -46,7 +47,7 @@ class ServiceFactory
 
     /**
      * 分析数组
-     * @param array $hooks  Hook
+     * @param array $hooks Hook
      * @param array $params 参数
      * @return array
      * @throws ApplicationException
@@ -69,7 +70,7 @@ class ServiceFactory
 
     /**
      * 分析数组
-     * @param array $hooks  Hook
+     * @param array $hooks Hook
      * @param array $params 参数
      * @return array
      * @throws ApplicationException
@@ -88,7 +89,7 @@ class ServiceFactory
 
     /**
      * 解析 Html, 多组
-     * @param array $hooks  钩子
+     * @param array $hooks 钩子
      * @param array $params 参数
      * @return string
      */
@@ -110,7 +111,7 @@ class ServiceFactory
     /**
      * 分析表单
      * @param string $builder 构建器
-     * @param array  $params  参数
+     * @param array  $params 参数
      * @return HtmlString|mixed
      */
     protected function parseForm($builder, $params)
