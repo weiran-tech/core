@@ -6,8 +6,8 @@
 use Doctum\Doctum;
 
 $baseDir       = dirname(dirname(__DIR__));
-$folders       = glob($baseDir . '/{modules,poppy}/*/src', GLOB_BRACE);
-$vendorFolders = glob($baseDir . '/vendor/poppy/**/src', GLOB_BRACE);
+$folders       = glob($baseDir . '/{modules,weiran}/*/src', GLOB_BRACE);
+$vendorFolders = glob($baseDir . '/vendor/weiran/**/src', GLOB_BRACE);
 
 $folders = array_merge($folders, $vendorFolders);
 

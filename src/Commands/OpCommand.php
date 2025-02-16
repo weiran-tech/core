@@ -41,7 +41,7 @@ class OpCommand extends Command
                 $content = $this->option('content') ?: 'No Content';
                 $file    = $this->option('file');
                 if (!config('weiran.core.op_mail')) {
-                    $this->error(sys_gen_mk(self::class, 'Config `poppy.core.op_mail` not set. Can not send Op Mail'));
+                    $this->error(sys_gen_mk(self::class, 'Config `weiran.core.op_mail` not set. Can not send Op Mail'));
                     return 1;
                 }
                 try {

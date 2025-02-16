@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Weiran\Core\Listeners\PoppyOptimized;
+namespace Weiran\Core\Listeners\WeiranOptimized;
 
-use Weiran\Framework\Events\PoppyOptimized;
+use Weiran\Framework\Events\WeiranOptimized;
 
 /**
  * 清除缓存
@@ -13,9 +13,9 @@ class ClearCacheListener
 {
 
     /**
-     * @param PoppyOptimized $event 框架优化
+     * @param WeiranOptimized $event 框架优化
      */
-    public function handle(PoppyOptimized $event): void
+    public function handle(WeiranOptimized $event): void
     {
         sys_tag('weiran-core')->clear();
 

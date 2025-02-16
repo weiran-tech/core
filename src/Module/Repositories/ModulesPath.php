@@ -32,7 +32,7 @@ class ModulesPath extends Repository
             function () use ($collection) {
                 $collect = collect();
                 $collection->each(function ($definition, $slug) use ($collect) {
-                    // slug  - poppy.mgr-app
+                    // slug  - weiran.mgr-app
                     collect($definition)->each(function ($menus, $type) use ($slug, $collect) {
                         // $type - backend/web
                         collect($menus)->each(function ($menu, $key) use ($type, $slug, $collect) {

@@ -1,7 +1,7 @@
 {
     "name": "Weiran Core Module",
     "slug": "core",
-    "type": "poppy",
+    "type": "weiran",
     "version": "1.0",
     "order": 5,
     "description": "Weiran core module for util tools"

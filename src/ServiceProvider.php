@@ -5,9 +5,9 @@ declare(strict_types = 1);
 namespace Weiran\Core;
 
 use Illuminate\Console\Scheduling\Schedule;
-use Weiran\Core\Listeners\PoppyOptimized\ClearCacheListener;
-use Weiran\Framework\Events\PoppyOptimized as PoppyOptimizedEvent;
-use Weiran\Framework\Events\PoppySchedule;
+use Weiran\Core\Listeners\WeiranOptimized\ClearCacheListener;
+use Weiran\Framework\Events\WeiranOptimized;
+use Weiran\Framework\Events\WeiranSchedule;
 use Weiran\Framework\Exceptions\ModuleNotFoundException;
 use Weiran\Framework\Support\WeiranServiceProvider;
 
@@ -16,7 +16,7 @@ class ServiceProvider extends WeiranServiceProvider
 
     protected array $listens = [
         // poppy
-        PoppyOptimizedEvent::class => [
+        WeiranOptimized::class => [
             ClearCacheListener::class,
         ],
     ];
@@ -61,7 +61,7 @@ class ServiceProvider extends WeiranServiceProvider
 
     private function registerSchedule(): void
     {
-        app('events')->listen(PoppySchedule::class, function (Schedule $schedule) {
+        app('events')->listen(WeiranSchedule::class, function (Schedule $schedule) {
 
         });
     }
