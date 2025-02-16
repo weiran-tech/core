@@ -29,8 +29,8 @@ class DocCommand extends Command
         $type = $this->argument('type');
         switch ($type) {
             case 'api':
-                $weiranDirs = app('files')->glob(app('path.weiran') . '/*/src/Http/Request');
-                $moduleDirs = app('files')->glob(app('path.module') . '/*/src/Http/Request');
+                $weiranDirs = app('files')->glob(app('path.weiran') . '/*/src/Http');
+                $moduleDirs = app('files')->glob(app('path.module') . '/*/src/Http');
                 $openapi    = Generator::scan(array_merge($weiranDirs, $moduleDirs));
 
                 try {
