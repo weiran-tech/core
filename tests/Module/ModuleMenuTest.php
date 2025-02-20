@@ -16,7 +16,7 @@ class ModuleMenuTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        py_console()->call('cache:clear');
+        weiran_console()->call('cache:clear');
     }
 
     public function testParse(): void
