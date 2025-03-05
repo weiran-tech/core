@@ -481,7 +481,7 @@ class InspectCommand extends Command
                 }
             }
 
-            $trimComment       = str_replace(['/', '*', "\t", "\n", ' '], '', $refection->getDocComment());
+            $trimComment       = str_replace(['/', '*', "\t", "\n", ' '], '', (string) $refection->getDocComment());
             $docCommentMissing = true;
             if ($trimComment) {
                 $docCommentMissing = false;

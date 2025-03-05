@@ -12,7 +12,7 @@ class RdsSetTest extends RdsBaseTest
     /**
      * 能添加数组和字串/ID, 并且ID 和字串相同时候被视为一个值
      */
-    public function testSAdd()
+    public function testSAdd(): void
     {
         $key = $this->key('s-add');
         $this->rds->del($key);
@@ -36,7 +36,7 @@ class RdsSetTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testSIsMember()
+    public function testSIsMember(): void
     {
         $key = $this->key('s-is-member');
         $this->rds->sAdd($key, [
@@ -53,7 +53,7 @@ class RdsSetTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testSPop()
+    public function testSPop(): void
     {
         $key = $this->key('s-pop');
         $this->rds->sAdd($key, [
@@ -71,7 +71,7 @@ class RdsSetTest extends RdsBaseTest
     }
 
 
-    public function testSRem()
+    public function testSRem(): void
     {
         $key = $this->key('s-rem');
         $this->rds->del($key);
@@ -90,7 +90,7 @@ class RdsSetTest extends RdsBaseTest
     }
 
 
-    public function testSMove()
+    public function testSMove(): void
     {
         $key     = $this->key('s-move');
         $keyDist = $this->key('s-move-dist');
@@ -110,7 +110,7 @@ class RdsSetTest extends RdsBaseTest
         $this->rds->del([$key, $keyDist]);
     }
 
-    public function testCard()
+    public function testCard(): void
     {
         $key = $this->key('s-card');
         $this->rds->del($key);
@@ -126,7 +126,7 @@ class RdsSetTest extends RdsBaseTest
     }
 
 
-    public function testSMembers()
+    public function testSMembers(): void
     {
         $key = $this->key('s-members');
         $res = $this->rds->sMembers($key);
@@ -140,7 +140,7 @@ class RdsSetTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testSScan()
+    public function testSScan(): void
     {
         $key = $this->key('s-scan');
         $this->rds->sAdd($key, [
@@ -167,7 +167,7 @@ class RdsSetTest extends RdsBaseTest
     }
 
 
-    public function testInter()
+    public function testInter(): void
     {
         $key      = $this->key('s-inter');
         $key2     = $this->key('s-inter-2');
@@ -186,7 +186,7 @@ class RdsSetTest extends RdsBaseTest
         $inter = $this->rds->sInter([
             $key2, $key,
         ]);
-        $this->assertTrue(in_array([1], $inter));
+        $this->assertContains([1], $inter);
 
 
         $this->rds->sInterStore($keyStore, [
@@ -200,7 +200,7 @@ class RdsSetTest extends RdsBaseTest
     }
 
 
-    public function testSUnion()
+    public function testSUnion(): void
     {
         $key      = $this->key('s-union');
         $key2     = $this->key('s-union-2');
@@ -211,7 +211,7 @@ class RdsSetTest extends RdsBaseTest
         ]);
 
         $this->rds->sAdd($key, [
-            1, "1",
+            1, '1',
         ]);
         $this->rds->sAdd($key2, [
             [1],
@@ -220,8 +220,8 @@ class RdsSetTest extends RdsBaseTest
         $values = $this->rds->sUnion([
             $key, $key2,
         ]);
-        $this->assertTrue(in_array([1], $values));
-        $this->assertTrue(in_array(1, $values));
+        $this->assertContains([1], $values);
+        $this->assertContains(1, $values);
 
         $this->rds->sUnionStore($keyStore, [
             $key, $key2,
@@ -235,7 +235,7 @@ class RdsSetTest extends RdsBaseTest
     /**
      * 检测数据的 Diff
      */
-    public function testSDiff()
+    public function testSDiff(): void
     {
         $key      = $this->key('s-diff');
         $key2     = $this->key('s-diff-2');
@@ -261,7 +261,7 @@ class RdsSetTest extends RdsBaseTest
     }
 
 
-    public function testSRandMember()
+    public function testSRandMember(): void
     {
         $key = $this->key('s-diff');
         $this->rds->sadd($key, range(1, 20));

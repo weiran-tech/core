@@ -7,10 +7,11 @@ namespace Weiran\Core\Tests\Support;
 use Artisan;
 use Carbon\Carbon;
 use Exception;
+use JsonException;
+use Throwable;
 use Weiran\Framework\Application\TestCase;
 use Weiran\Framework\Classes\Resp;
 use Weiran\System\Models\PamAccount;
-use Throwable;
 
 class FunctionTest extends TestCase
 {
@@ -73,6 +74,10 @@ class FunctionTest extends TestCase
 
     }
 
+    /**
+     * @return void
+     * @throws JsonException
+     */
     public function testSysFn(): void
     {
         $exception  = new Exception('Test Exception');

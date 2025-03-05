@@ -24,7 +24,7 @@ use Weiran\Framework\Exceptions\TransactionException;
  *     created_at timestamp              null,
  *     updated_at timestamp              null
  * )
- * charset = utf8;
+ * charset = utf8mb4;
  */
 class RdsPersistTest extends TestCase
 {
