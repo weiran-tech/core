@@ -29,7 +29,7 @@ class InspectCommand extends Command
      * The name and signature of the console command.
      * @var string
      */
-    protected $signature = 'weiran:core:inspect 
+    protected $signature = 'core:inspect 
 		{type? : Support type need to input, [method, file, class, env, action, controller]}
 		{--module= : The module to check}
 		{--export= : The module to check}
@@ -95,27 +95,27 @@ class InspectCommand extends Command
                 $this->inspectTrans();
                 break;
             default:
-                $this->call('weiran:core:inspect', [
+                $this->call('core:inspect', [
                     'type' => 'file',
                 ]);
 
-                $this->call('weiran:core:inspect', [
+                $this->call('core:inspect', [
                     'type' => 'class',
                 ]);
 
-                $this->call('weiran:core:inspect', [
+                $this->call('core:inspect', [
                     'type' => 'util',
                 ]);
 
-                $this->call('weiran:core:inspect', [
+                $this->call('core:inspect', [
                     'type' => 'validation',
                 ]);
 
-                $this->call('weiran:core:inspect', [
+                $this->call('core:inspect', [
                     'type' => 'seo',
                 ]);
 
-                $this->call('weiran:core:inspect', [
+                $this->call('core:inspect', [
                     'type' => 'perms',
                 ]);
                 break;

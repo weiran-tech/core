@@ -18,7 +18,7 @@ class PersistCommand extends Command
      * The name and signature of the console command.
      * @var string
      */
-    protected $signature = 'weiran:core:persist
+    protected $signature = 'core:persist
 		{table : Table to exec. [pam_log...|all]}
 	';
 

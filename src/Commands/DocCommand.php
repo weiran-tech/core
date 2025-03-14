@@ -15,7 +15,7 @@ use Psr\Container\NotFoundExceptionInterface;
 class DocCommand extends Command
 {
 
-    protected $signature = 'weiran:core:doc
+    protected $signature = 'core:doc
 		{type : Document type to run. [api]}
 	';
 

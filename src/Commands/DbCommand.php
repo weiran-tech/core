@@ -23,7 +23,7 @@ class DbCommand extends Command
      * The name and signature of the console command.
      * @var string
      */
-    protected $signature = 'weiran:core:db
+    protected $signature = 'core:db
 		{do : Action}
 	';
 

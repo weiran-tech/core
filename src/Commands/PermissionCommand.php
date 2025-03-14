@@ -20,7 +20,7 @@ class PermissionCommand extends Command
 {
     use CoreTrait;
 
-    protected $signature = 'weiran:core:permission
+    protected $signature = 'core:permission
 		{do : The permission action to handle, allow <lists,init>}
 		';
 
