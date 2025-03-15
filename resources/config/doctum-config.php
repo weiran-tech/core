@@ -28,7 +28,7 @@ $iterator = Symfony\Component\Finder\Finder::create()
 
 $options = [
     'theme'     => 'default',
-    'title'     => 'Lemon Framework API Documentation',
+    'title'     => 'Weiran Framework API Documentation',
     'build_dir' => $baseDir . '/public/docs/php',
     'cache_dir' => $baseDir . '/storage/doctum/cache',
 ];
