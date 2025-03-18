@@ -32,10 +32,7 @@ class ModulesMenu extends Repository
                 $collection = $collection->map(function ($definition) {
                     // slug  - module
                     // layer - module
-                    return collect($definition)->map(function ($definition, $key) {
-                        // layer - backend/web
-                        $definition['type'] = $key;
-
+                    return collect($definition)->map(function ($definition) {
                         // new groups
                         $parsedGroups = [];
                         collect($definition['groups'])->each(function ($groups, $item_key) use (&$parsedGroups) {
@@ -104,9 +101,9 @@ class ModulesMenu extends Repository
 
     /**
      * 根据用户返回合适的菜单
-     * @param string                              $type               指定用户的类型
+     * @param string                              $type 指定用户的类型
      * @param bool                                $is_full_permission 是否是全部权限
-     * @param null|RbacUserTrait|RbacUserContract $pam                用户
+     * @param null|RbacUserTrait|RbacUserContract $pam 用户
      * @return Collection
      * @throws PermissionException
      */
@@ -174,7 +171,7 @@ class ModulesMenu extends Repository
     }
 
     /**
-     * @param string $type  类型
+     * @param string $type 类型
      * @param array  $perms perms
      * @return Collection
      */
@@ -209,8 +206,8 @@ class ModulesMenu extends Repository
     }
 
     /**
-     * @param array      $items      数据数据
-     * @param string     $prefix     前缀
+     * @param array      $items 数据数据
+     * @param string     $prefix 前缀
      * @param Collection $collection 集合
      */
     private function parse(array $items, string $prefix, Collection $collection): void
