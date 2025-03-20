@@ -11,7 +11,7 @@ class InspectTest extends TestCase
 
     public function testDbSeo()
     {
-        $result = weiran_console()->call('weiran:core:inspect', [
+        $result = weiran_console()->call('core:inspect', [
             'type' => 'db_seo',
         ]);
         $this->assertEquals(0, $result);

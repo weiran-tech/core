@@ -16,7 +16,7 @@ class OpTest extends TestCase
 
     public function testMail(): void
     {
-        $result = weiran_console()->call('weiran:core:op', [
+        $result = weiran_console()->call('core:op', [
             'do' => 'mail',
         ]);
         $this->assertEquals(0, $result);

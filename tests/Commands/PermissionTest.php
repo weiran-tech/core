@@ -16,7 +16,7 @@ class PermissionTest extends TestCase
 
     public function testList()
     {
-        $result = weiran_console()->call('weiran:core:permission', [
+        $result = weiran_console()->call('core:permission', [
             'do' => 'list',
         ]);
         $this->assertEquals(0, $result);
@@ -24,7 +24,7 @@ class PermissionTest extends TestCase
 
     public function testInit()
     {
-        $result = weiran_console()->call('weiran:core:permission', [
+        $result = weiran_console()->call('core:permission', [
             'do' => 'init',
         ]);
         $this->assertEquals(0, $result);
