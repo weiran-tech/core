@@ -11,7 +11,8 @@
     "require": {
         "php": "^8.1",
         "ext-bcmath": "*",
-        "symfony/yaml": "^6.2"
+        "symfony/yaml": "^6.2",
+        "predis/predis": "^2.3"
     },
     "require-dev": {
         "zircote/swagger-php": "5.*"
