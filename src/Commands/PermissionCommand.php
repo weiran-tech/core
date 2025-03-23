@@ -83,7 +83,7 @@ class PermissionCommand extends Command
         );
     }
 
-    private function init()
+    private function init(): void
     {
         sys_tag('weiran-core')->del(PyCoreDef::ckModule('module'));
 
