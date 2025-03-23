@@ -8,15 +8,15 @@ use Artisan;
 use Illuminate\Console\Command;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Str;
-use Weiran\Core\Classes\Inspect\CommentParser;
-use Weiran\Core\Classes\Traits\CoreTrait;
-use Weiran\Framework\Classes\Traits\KeyParserTrait;
-use Weiran\Framework\Validation\Rule;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
+use Weiran\Core\Classes\Inspect\CommentParser;
+use Weiran\Core\Classes\Traits\CoreTrait;
+use Weiran\Framework\Classes\Traits\KeyParserTrait;
+use Weiran\Framework\Validation\Rule;
 
 /**
  * 检查代码规则
@@ -786,7 +786,7 @@ class InspectCommand extends Command
                         continue;
                     }
                     $ctlPermissions = (new $className)::$permission;
-                    $permissions    = array_merge($permissions, $ctlPermissions);
+                    array_push($permissions, ...$ctlPermissions);
                 }
             }
 
@@ -811,7 +811,7 @@ class InspectCommand extends Command
                         continue;
                     }
                     $ctlPermissions = (new $className)::getPermissionMap();
-                    $permissions    = array_merge($permissions, $ctlPermissions);
+                    array_push($permissions, ...$ctlPermissions);
                 }
             }
         });

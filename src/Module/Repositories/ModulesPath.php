@@ -19,6 +19,21 @@ use Weiran\Framework\Support\Abstracts\Repository;
 class ModulesPath extends Repository
 {
 
+    public static function parse($path): array
+    {
+        $mt     = explode('/', $path);
+        $type   = $mt[0];
+        $route  = $mt[1];
+        $params = explode(',', $mt[2] ?? '');
+        $query  = StrHelper::parseKey($mt[3] ?? '');
+
+        return [
+            'path'  => route($route, $params, false),
+            'query' => $query,
+            'type'  => $type,
+        ];
+    }
+
     /**
      * Initialize.
      * @param Collection $collection 集合
@@ -64,8 +79,8 @@ class ModulesPath extends Repository
                         return;
                     }
                     if ($reCollection->offsetExists($injection)) {
-                        $item             = $reCollection->get($injection);
-                        $item['children'] = array_merge($item['children'], $definition['children']);
+                        $item = $reCollection->get($injection);
+                        array_push($item['children'], ...$definition['children']);
                         $reCollection->put($injection, $item);
                         $reCollection->offsetUnset($key);
                     }
@@ -77,9 +92,9 @@ class ModulesPath extends Repository
 
     /**
      * 根据用户返回合适的菜单
-     * @param string                              $type               指定用户的类型
+     * @param string                              $type 指定用户的类型
      * @param bool                                $is_full_permission 是否是全部权限
-     * @param null|RbacUserTrait|RbacUserContract $pam                用户
+     * @param null|RbacUserTrait|RbacUserContract $pam 用户
      * @return Collection
      * @throws PermissionException
      */
@@ -142,7 +157,7 @@ class ModulesPath extends Repository
     }
 
     /**
-     * @param string $type  类型
+     * @param string $type 类型
      * @param array  $perms perms
      * @return Collection
      */
@@ -175,21 +190,6 @@ class ModulesPath extends Repository
         return $menu;
     }
 
-    public static function parse($path): array
-    {
-        $mt     = explode('/', $path);
-        $type   = $mt[0];
-        $route  = $mt[1];
-        $params = explode(',', $mt[2] ?? '');
-        $query  = StrHelper::parseKey($mt[3] ?? '');
-
-        return [
-            'path'  => route($route, $params, false),
-            'query' => $query,
-            'type'  => $type,
-        ];
-    }
-
     /**
      * 解析链接
      * @param array $submenus 数据数组
@@ -217,10 +217,12 @@ class ModulesPath extends Repository
                 }
                 $route     = $mt[1];
                 $routeHide = (array) config('weiran.core.route_hide');
-                if (in_array($route, $routeHide)) {
+                if (in_array($route, $routeHide, true)) {
                     return null;
                 }
-                $submenu = array_merge($submenu, self::parse($submenu['path']));
+                $pushedMenus = self::parse($submenu['path']);
+                array_push($submenu, ...$pushedMenus);
+
             }
         }
 

@@ -151,10 +151,10 @@ class RdsSetTest extends RdsBaseTest
         $cursor  = 0;
         while ($request) {
             // 使用循环来获取数据, 不支持排序(无序列表)
-            $val    = $this->rds->sScan($key, $cursor, [
+            $val = $this->rds->sScan($key, $cursor, [
                 'count' => 1,
             ]);
-            $result = array_merge($result, $val[1]);
+            array_push($result, ...$val[0]);
             if ($val[0]) {
                 $cursor = $val[0];
             }
