@@ -9,7 +9,7 @@ use DB;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Weiran\Core\Classes\Inspect\CommentParser;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Framework\Helper\UtilHelper;
 use ReflectionClass;
 use Throwable;
@@ -118,7 +118,7 @@ class DbCommand extends Command
             }
         });
 
-        sys_tag('weiran-core')->hMSet(PyCoreDef::ckLangModels(), $seoDb);
+        sys_tag('weiran-core')->hMSet(WeiranCoreDef::ckLangModels(), $seoDb);
         $this->info('Cached models Success!');
     }
 

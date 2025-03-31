@@ -6,7 +6,7 @@ namespace Weiran\Core\Redis;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Throwable;
 
 /**
@@ -37,10 +37,10 @@ class RdsFieldExpired
     public function clearExpiredField(): bool
     {
         // 需要清理的field
-        $fields = sys_tag('weiran-core')->zRangeByScore(PyCoreDef::ckRdsKeyFieldExpired(), 0, time());
+        $fields = sys_tag('weiran-core')->zRangeByScore(WeiranCoreDef::ckRdsKeyFieldExpired(), 0, time());
         $this->convertClearFields($fields);
         if ($fields) {
-            sys_tag('weiran-core')->zRem(PyCoreDef::ckRdsKeyFieldExpired(), $fields);
+            sys_tag('weiran-core')->zRem(WeiranCoreDef::ckRdsKeyFieldExpired(), $fields);
         }
 
         return true;
@@ -73,7 +73,7 @@ class RdsFieldExpired
         $index = implode(self::$stripTag, [$database, $key, $field, $type]);
 
         $expiredAt = Carbon::now()->timestamp + $expireTime;
-        sys_tag('weiran-core')->zAdd(PyCoreDef::ckRdsKeyFieldExpired(), [
+        sys_tag('weiran-core')->zAdd(WeiranCoreDef::ckRdsKeyFieldExpired(), [
             $index => $expiredAt,
         ]);
         return true;

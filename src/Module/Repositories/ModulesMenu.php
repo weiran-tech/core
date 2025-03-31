@@ -6,7 +6,7 @@ namespace Weiran\Core\Module\Repositories;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Exceptions\PermissionException;
 use Weiran\Core\Rbac\Contracts\RbacUserContract;
 use Weiran\Core\Rbac\Traits\RbacUserTrait;
@@ -26,8 +26,8 @@ class ModulesMenu extends Repository
     {
         // check serve setting
         $this->items = sys_tag('weiran-core')->remember(
-            PyCoreDef::ckModule('menu'),
-            PyCoreDef::MIN_ONE_DAY * 60,
+            WeiranCoreDef::ckModule('menu'),
+            WeiranCoreDef::MIN_ONE_DAY * 60,
             function () use ($collection) {
                 $collection = $collection->map(function ($definition) {
                     // slug  - module

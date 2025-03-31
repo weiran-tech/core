@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Redis\Cache;
 
 /**
@@ -25,7 +25,7 @@ trait RbacUserTrait
     public function cachedRoles(): Collection
     {
         if ($this->permissions === null) {
-            $cacheKey          = PyCoreDef::rbacCkUserRoles($this->{$this->primaryKey});
+            $cacheKey          = WeiranCoreDef::rbacCkUserRoles($this->{$this->primaryKey});
             $this->permissions = Cache::of('weiran-core-rbac')->remember($cacheKey, config('cache.ttl'), function () {
                 return $this->roles()->get();
             });
@@ -237,7 +237,7 @@ trait RbacUserTrait
 
     protected static function clearCachedRoles()
     {
-        Cache::of('weiran-core-rbac')->delete(PyCoreDef::rbacCkUserRoles('*'));
+        Cache::of('weiran-core-rbac')->delete(WeiranCoreDef::rbacCkUserRoles('*'));
     }
 
     /**

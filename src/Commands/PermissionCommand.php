@@ -7,7 +7,7 @@ namespace Weiran\Core\Commands;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Classes\Traits\CoreTrait;
 use Weiran\Core\Events\PermissionInitEvent;
 use Weiran\Core\Rbac\Permission\Permission;
@@ -85,7 +85,7 @@ class PermissionCommand extends Command
 
     private function init(): void
     {
-        sys_tag('weiran-core')->del(PyCoreDef::ckModule('module'));
+        sys_tag('weiran-core')->del(WeiranCoreDef::ckModule('module'));
 
         sys_tag('weiran-core-rbac')->clear();
 

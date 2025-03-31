@@ -6,7 +6,7 @@ namespace Weiran\Core\Redis;
 
 use DB;
 use Illuminate\Support\Str;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Framework\Classes\Number;
 use Weiran\Framework\Classes\Traits\AppTrait;
 use Weiran\Framework\Exceptions\ApplicationException;
@@ -40,7 +40,7 @@ class RdsPersist
     public static function where($table, array $where = []): array
     {
         $rdsDb     = sys_tag('weiran-core-persist');
-        $rdsKey    = PyCoreDef::ckPersistPersist($table . '_' . self::TYPE_UPDATE);
+        $rdsKey    = WeiranCoreDef::ckPersistPersist($table . '_' . self::TYPE_UPDATE);
         $whereJson = self::whereCondition($where);
         // 当前key的所有list数据
         $exists = $rdsDb->hExists($rdsKey, $whereJson);
@@ -66,7 +66,7 @@ class RdsPersist
         // 所有修改数据的key
         $updateKeys = [];
 
-        $keys = $rdsDb->keys(PyCoreDef::ckPersistPersist('*'));
+        $keys = $rdsDb->keys(WeiranCoreDef::ckPersistPersist('*'));
 
         foreach ($keys as $_key) {
             $keyName = substr($_key, strrpos($_key, ':') + 1);
@@ -164,7 +164,7 @@ class RdsPersist
      */
     public static function update(string $table = '', array $where = [], array $update = [])
     {
-        $rdsKey = PyCoreDef::ckPersistPersist($table . '_' . self::TYPE_UPDATE);
+        $rdsKey = WeiranCoreDef::ckPersistPersist($table . '_' . self::TYPE_UPDATE);
         $rdsDb  = sys_tag('weiran-core-persist');
 
         if (empty($where)) {
@@ -233,7 +233,7 @@ class RdsPersist
             }
         }
 
-        $rdsKey    = PyCoreDef::ckPersistPersist($table . '_' . self::TYPE_INSERT);
+        $rdsKey    = WeiranCoreDef::ckPersistPersist($table . '_' . self::TYPE_INSERT);
         $arrValues = [];
         foreach ($values as $value) {
             $arrValues[] = $value;
@@ -271,7 +271,7 @@ class RdsPersist
         $rdsDb = sys_tag('weiran-core-persist');
         foreach ($insert_keys as $_key) {
 
-            $rdsKey = PyCoreDef::ckPersistPersist($_key);
+            $rdsKey = WeiranCoreDef::ckPersistPersist($_key);
             // 当前key的所有list数据
             $_keyData = $rdsDb->lrange($rdsKey, 0, -1);
             $_arrData = [];
@@ -303,7 +303,7 @@ class RdsPersist
     {
         $rdsDb = sys_tag('weiran-core-persist');
         foreach ($update_keys as $_key) {
-            $rdsKey = PyCoreDef::ckPersistPersist($_key);
+            $rdsKey = WeiranCoreDef::ckPersistPersist($_key);
             // 当前key的所有list数据
             $keys = $rdsDb->hkeys($rdsKey);
 

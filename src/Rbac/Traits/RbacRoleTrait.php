@@ -7,7 +7,7 @@ namespace Weiran\Core\Rbac\Traits;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Rbac\Permission\Permission;
 
 /**
@@ -22,7 +22,7 @@ trait RbacRoleTrait
      */
     public function cachedPermissions()
     {
-        $cacheKey = PyCoreDef::rbacCkRolePermissions($this->{$this->primaryKey});
+        $cacheKey = WeiranCoreDef::rbacCkRolePermissions($this->{$this->primaryKey});
         return sys_tag('weiran-core-rbac')->remember($cacheKey, config('cache.ttl'), function () {
             return $this->perms()->get();
         });
@@ -225,12 +225,12 @@ trait RbacRoleTrait
 
     protected static function clearCachedPermissions(): void
     {
-        sys_tag('weiran-core-rbac')->clear(PyCoreDef::rbacCkRolePermissions('*'));
+        sys_tag('weiran-core-rbac')->clear(WeiranCoreDef::rbacCkRolePermissions('*'));
     }
 
     protected static function clearCachedPivotPermissions($role_id): void
     {
-        sys_tag('weiran-core-rbac')->clear(PyCoreDef::rbacCkRolePermissions($role_id));
+        sys_tag('weiran-core-rbac')->clear(WeiranCoreDef::rbacCkRolePermissions($role_id));
     }
 
     /**

@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 
 /**
  * 缓存模拟器
@@ -28,14 +28,14 @@ class RdsStore
         $cacheData = [
             'expired' => Carbon::now()->addSeconds($second)->timestamp,
         ];
-        $fetchData = sys_tag('weiran-core')->get(PyCoreDef::ckCacher($key));
+        $fetchData = sys_tag('weiran-core')->get(WeiranCoreDef::ckCacher($key));
         // 无数据 / 已过期
         if (!$fetchData || $fetchData['expired'] <= Carbon::now()->timestamp) {
             if ($value instanceof Closure) {
                 $value = $value();
             }
             $cacheData['value'] = $value;
-            sys_tag('weiran-core')->set(PyCoreDef::ckCacher($key), $cacheData);
+            sys_tag('weiran-core')->set(WeiranCoreDef::ckCacher($key), $cacheData);
 
             return $cacheData['value'];
         }
@@ -152,7 +152,7 @@ class RdsStore
             return true;
         }
         if (strtolower(config('cache.default')) === 'redis') {
-            $res    = sys_tag('weiran-core-persist')->set(PyCoreDef::ckPersistRdsLock($key), 'atomic-' . Carbon::now()->timestamp, 'EX', $seconds, 'NX');
+            $res    = sys_tag('weiran-core-persist')->set(WeiranCoreDef::ckPersistRdsLock($key), 'atomic-' . Carbon::now()->timestamp, 'EX', $seconds, 'NX');
             return $res === false;
         }
         return true;

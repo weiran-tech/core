@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Weiran\Core\Module\Repositories;
 
 use Illuminate\Support\Collection;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Module\Module;
 use Weiran\Framework\Exceptions\LoadConfigurationException;
 use Weiran\Framework\Support\Abstracts\Repository;
@@ -32,8 +32,8 @@ class Modules extends Repository
     {
         $files       = app('files');
         $this->items = sys_tag('weiran-core')->remember(
-            PyCoreDef::ckModule('module'),
-            PyCoreDef::MIN_HALF_DAY * 60,
+            WeiranCoreDef::ckModule('module'),
+            WeiranCoreDef::MIN_HALF_DAY * 60,
             function () use ($slugs, $files) {
                 // load from file
                 $this->loadFromCache = false;

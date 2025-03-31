@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Weiran\Core\Tests\Redis;
 
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Redis\RdsDb;
 use Weiran\Core\Redis\RdsFieldExpired;
 use Predis\Client;
@@ -74,11 +74,11 @@ class RdsFieldExpiredTest extends RdsBaseTest
     {
         $cache = new Client(config('database.redis.default'));
         $cache->multi();
-        $beforeCount = $cache->zcard(PyCoreDef::ckRdsKeyFieldExpired());
+        $beforeCount = $cache->zcard(WeiranCoreDef::ckRdsKeyFieldExpired());
 
         (new RdsFieldExpired)->clearExpiredField();
 
-        $afterCount = $cache->zcard(PyCoreDef::ckRdsKeyFieldExpired());
+        $afterCount = $cache->zcard(WeiranCoreDef::ckRdsKeyFieldExpired());
 
         $cache->exec();
         $this->assertGreaterThanOrEqual($beforeCount, $afterCount);

@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Weiran\Core\Module\Repositories;
 
 use Illuminate\Support\Collection;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Framework\Support\Abstracts\Repository;
 
 /**
@@ -21,8 +21,8 @@ class ModulesService extends Repository
     public function initialize(Collection $data)
     {
         $this->items = sys_tag('weiran-core')->remember(
-            PyCoreDef::ckModule('service'),
-            PyCoreDef::MIN_HALF_DAY * 60,
+            WeiranCoreDef::ckModule('service'),
+            WeiranCoreDef::MIN_HALF_DAY * 60,
             function () use ($data) {
                 $collection = collect();
                 $data->each(function ($items) use ($collection) {

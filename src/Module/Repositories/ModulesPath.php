@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Weiran\Core\Module\Repositories;
 
 use Illuminate\Support\Collection;
-use Weiran\Core\Classes\PyCoreDef;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Exceptions\ModuleException;
 use Weiran\Core\Exceptions\PermissionException;
 use Weiran\Core\Rbac\Contracts\RbacUserContract;
@@ -42,8 +42,8 @@ class ModulesPath extends Repository
     {
         // check serve setting
         $this->items = sys_tag('weiran-core')->remember(
-            PyCoreDef::ckModule('path'),
-            PyCoreDef::MIN_ONE_DAY * 60,
+            WeiranCoreDef::ckModule('path'),
+            WeiranCoreDef::MIN_ONE_DAY * 60,
             function () use ($collection) {
                 $collect = collect();
                 $collection->each(function ($definition, $slug) use ($collect) {

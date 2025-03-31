@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Weiran\Core\Classes;
 
 
-class PyCoreDef
+class WeiranCoreDef
 {
 
     public const MIN_DEBUG     = 0;
