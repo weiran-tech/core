@@ -6,6 +6,7 @@ namespace Weiran\Core\Redis;
 
 use DB;
 use Illuminate\Support\Str;
+use JsonException;
 use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Framework\Classes\Number;
 use Weiran\Framework\Classes\Traits\AppTrait;
@@ -36,6 +37,7 @@ class RdsPersist
      * @param       $table
      * @param array $where
      * @return array
+     * @throws JsonException
      */
     public static function where($table, array $where = []): array
     {
@@ -57,8 +59,9 @@ class RdsPersist
      * 将redis中的所有数据持久化到数据库
      * 执行将所有表的数据都写入数据库中可使用该方法
      * @throws TransactionException
+     * @throws JsonException
      */
-    public static function exec()
+    public static function exec(): void
     {
         $rdsDb = sys_tag('weiran-core-persist');
         // 所有新增数据的key
@@ -89,8 +92,9 @@ class RdsPersist
      * 单独持久化某个表的时候可以使用该方法
      * @param string $table
      * @throws TransactionException
+     * @throws JsonException
      */
-    public static function execTable(string $table = '')
+    public static function execTable(string $table = ''): void
     {
         // 将类型为新增的数据持久化数据库
         self::execInsert([$table . '_' . self::TYPE_INSERT]);
@@ -110,7 +114,7 @@ class RdsPersist
             return $former;
         }
         foreach ($update as $k => $v) {
-            preg_match('/(?<column>[a-zA-Z0-9_]+)(\[(?<operator>\+|-|>|<|\.)])?/i', $k, $match);
+            preg_match('/(?<column>\w+)(\[(?<operator>\+|-|>|<|\.)])?/i', $k, $match);
             $column   = $match['column'];
             $operator = $match['operator'] ?? '';
             if (isset($former[$column])) {
@@ -156,11 +160,12 @@ class RdsPersist
 
     /**
      * 修改队列中的数据，根据条件没有找到的话就创建一条
-     * @param string $table   数据表名称
-     * @param array  $where   查询条件(一维数组)
-     * @param array  $update  修改条件(一维数组) <br>
+     * @param string $table 数据表名称
+     * @param array  $where 查询条件(一维数组)
+     * @param array  $update 修改条件(一维数组) <br>
      *                        此 update 条件支持 [+] 数据 + , [.] 数据组合, [>] 数据保留之前, [<] 将之前的数据覆盖
      * @throws ApplicationException
+     * @throws JsonException
      */
     public static function update(string $table = '', array $where = [], array $update = [])
     {
@@ -176,7 +181,7 @@ class RdsPersist
             $value = (string) $value;
         });
 
-        $whereJson = json_encode($where, JSON_UNESCAPED_UNICODE);
+        $whereJson = json_encode($where, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
 
         // 当前key的所有list数据
         $exists = $rdsDb->hexists($rdsKey, $whereJson);
@@ -212,7 +217,7 @@ class RdsPersist
 
     /**
      * 往队列中插入一条数据
-     * @param string $table  数据表名称
+     * @param string $table 数据表名称
      * @param array  $values 需要插入的数据
      * @return bool
      */
@@ -246,8 +251,9 @@ class RdsPersist
      * 返回 Where 条件
      * @param $where
      * @return false|string|null
+     * @throws JsonException
      */
-    private static function whereCondition($where)
+    private static function whereCondition($where): false|string|null
     {
         if (empty($where)) {
             return null;
@@ -258,7 +264,7 @@ class RdsPersist
             $value = (string) $value;
         });
 
-        return json_encode($where, JSON_UNESCAPED_UNICODE);
+        return json_encode($where, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -285,7 +291,7 @@ class RdsPersist
 
             // 插入成功
             if (!DB::table($_tableName)->insert($_arrData)) {
-                throw new TransactionException('Insert 数据持久化失败, ' . $_tableName . '' . ArrayHelper::toKvStr($_arrData));
+                throw new TransactionException('Insert 数据持久化失败, ' . $_tableName . ArrayHelper::toKvStr($_arrData));
             }
 
             // 从缓冲中删除key
@@ -298,8 +304,9 @@ class RdsPersist
      * 将类型为修改的数据持久化到数据库
      * @param array $update_keys 类型为修改的数据的keys,二维数组
      * @throws TransactionException
+     * @throws JsonException
      */
-    private static function execUpdate(array $update_keys = [])
+    private static function execUpdate(array $update_keys = []): void
     {
         $rdsDb = sys_tag('weiran-core-persist');
         foreach ($update_keys as $_key) {
@@ -311,7 +318,7 @@ class RdsPersist
             $tableName = Str::before($_key, '_' . self::TYPE_UPDATE);
 
             foreach ($keys as $where) {
-                $arrWhere = json_decode($where, true);
+                $arrWhere = json_decode($where, true, 512, JSON_THROW_ON_ERROR);
                 $arrValue = $rdsDb->hget($rdsKey, $where);
 
                 // 修改成功
@@ -334,7 +341,7 @@ class RdsPersist
     {
         $columns = [];
         foreach ($keys as $key) {
-            preg_match('/(?<column>[a-zA-Z0-9_]+)(\[(?<operator>\+|-|>|<|\.)])?/i', $key, $match);
+            preg_match('/(?<column>\w+)(\[(?<operator>\+|-|>|<|\.)])?/i', $key, $match);
             $columns[] = $match['column'];
         }
         return $columns;
