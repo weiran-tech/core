@@ -69,6 +69,7 @@ if (!function_exists('sys_db')) {
      * @param string       $table 数据表
      * @param array|string $keys 密钥
      * @return array|string
+     * @deprecated 1.0 废弃, 因为绑定太严格
      */
     function sys_db(string $table, $keys = [])
     {
