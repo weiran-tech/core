@@ -549,26 +549,27 @@ class InspectCommand extends Command
             ->name('*.php')
             ->in($folders);
 
-        $checkFile = function (SplFileInfo $file) use ($slug) {
+        $rules = [];
+        $checkFile = function (SplFileInfo $file) use ($slug, &$rules) {
             $pathName = $file->getPathname();
             $fileName = $file->getFilename();
-            if (strpos($pathName, '/Events/') !== false && substr(pathinfo($fileName)['filename'], -5) !== 'Event') {
-                $this->nameRules[] = [
+            if (str_contains($pathName, '/Events/') && !str_ends_with(pathinfo($fileName)['filename'], 'Event')) {
+                $rules[] = [
                     'slug' => $slug,
                     'file' => $fileName,
                     'path' => $pathName,
                 ];
             }
-            if (strpos($pathName, '/Listeners/') !== false && substr(pathinfo($fileName)['filename'], -8) !== 'Listener') {
-                $this->nameRules[] = [
+            if (str_contains($pathName, '/Listeners/') && !str_ends_with(pathinfo($fileName)['filename'], 'Listener')) {
+                $rules[] = [
                     'slug' => $slug,
                     'file' => $fileName,
                     'path' => $pathName,
                 ];
             }
 
-            if ((strpos($pathName, '/Policies/') !== false) && substr(pathinfo($fileName)['filename'], -6) !== 'Policy') {
-                $this->nameRules[] = [
+            if ((str_contains($pathName, '/Policies/')) && !str_ends_with(pathinfo($fileName)['filename'], 'Policy')) {
+                $rules[] = [
                     'slug' => $slug,
                     'file' => $fileName,
                     'path' => $pathName,
@@ -576,16 +577,15 @@ class InspectCommand extends Command
             }
         };
 
-
         foreach ($iterator as $file) {
             $checkFile($file);
         }
 
         $this->warn('[Inspect:Name Rule]: ' . $slug);
-        if ($this->nameRules) {
+        if ($rules) {
             $this->table([
                 'slug' => 'Module', 'file' => 'FileName', 'path' => 'Path',
-            ], $this->nameRules);
+            ], $rules);
         }
         else {
             $this->info('Beautiful, Name rules are matched.');
@@ -649,14 +649,6 @@ class InspectCommand extends Command
                 ];
                 if (!$comment) {
                     $item[] = '[comment: missing]';
-                }
-                else if (Str::contains($comment, '@api ')) {
-                    if (preg_match('/\* @api\s+\{(post|get)}[a-z0-9_\/\s]+(.*)/', $comment, $matches)) {
-                        $item[] = $matches[2];
-                    }
-                    else {
-                        $item[] = '';
-                    }
                 }
                 else {
                     $Parser = new CommentParser();
