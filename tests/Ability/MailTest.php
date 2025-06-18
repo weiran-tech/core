@@ -4,10 +4,16 @@ declare(strict_types = 1);
 
 namespace Weiran\Core\Tests\Ability;
 
+use JsonException;
 use Mail;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Throwable;
 use Weiran\Framework\Application\TestCase;
 use Weiran\Framework\Exceptions\ApplicationException;
+use Weiran\System\Classes\WeiranSystemDef;
+use Weiran\System\Exceptions\SettingKeyNotMatchException;
+use Weiran\System\Exceptions\SettingValueOutOfRangeException;
 use Weiran\System\Mail\MaintainMail;
 use Weiran\System\Mail\TestMail;
 
@@ -18,10 +24,16 @@ class MailTest extends TestCase
 
     /**
      * @throws ApplicationException
+     * @throws JsonException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws SettingKeyNotMatchException
+     * @throws SettingValueOutOfRangeException
      */
     public function setUp(): void
     {
         parent::setUp();
+        WeiranSystemDef::fillMailConfig();
         $this->mail = (string) config('weiran.core.op_mail');
         if (!$this->mail) {
             throw new ApplicationException('配置 `weiran.core.op_mail` 尚未设置');
