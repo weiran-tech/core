@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use Illuminate\Cache\TaggableStore;
 use Illuminate\Cache\TaggedCache;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
 use Illuminate\Support\Arr;
 use Weiran\Core\Classes\WeiranCoreDef;
@@ -16,13 +17,13 @@ if (!function_exists('sys_cache')) {
     /**
      * 获取缓存
      * @param string|null $tag 标签, 支持字串, 支持类名
-     * @return Cache|TaggedCache
+     * @return Repository | TaggedCache
      */
-    function sys_cache(string $tag = null)
+    function sys_cache(string $tag = null): Repository|TaggedCache
     {
         $cache = app('cache');
         if ($tag && ($cache->getStore() instanceof TaggableStore)) {
-            if (strpos(trim($tag, '\\'), '\\') !== false) {
+            if (str_contains(trim($tag, '\\'), '\\')) {
                 $tag = strtolower(substr($tag, 0, strpos($tag, '\\')));
             }
 
