@@ -29,16 +29,14 @@ class DocCommand extends Command
         $type = $this->argument('type');
         switch ($type) {
             case 'api':
-                $weiranDirs      = app('files')->glob(app('path.weiran') . '/*/src/Http');
-                $weiranModelDirs = app('files')->glob(app('path.weiran') . '/*/src/Models');
-                $moduleDirs      = app('files')->glob(app('path.module') . '/*/src/Http');
-                $moduleModelDirs = app('files')->glob(app('path.module') . '/*/src/Models');
-                $projectDirs     = resource_path('docs');
+                $weiranDirs  = app('files')->glob(app('path.weiran') . '/*/src/Http');
+                $moduleDirs  = app('files')->glob(app('path.module') . '/*/src/Http');
+                $projectDirs = resource_path('docs');
                 if (!class_exists(Generator::class)) {
                     $this->error('Please Run `composer require zircote/swagger-php` Install OpenApi\Generator First ');
                     return;
                 }
-                $openapi = Generator::scan(array_merge($weiranDirs, $moduleDirs, $weiranModelDirs, $moduleModelDirs, [$projectDirs]));
+                $openapi = Generator::scan(array_merge($weiranDirs, $moduleDirs, [$projectDirs]));
 
                 try {
                     app('files')->ensureDirectoryExists(public_path('docs/swagger-ui/'));
