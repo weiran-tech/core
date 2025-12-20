@@ -36,7 +36,8 @@ class DocCommand extends Command
                     $this->error('Please Run `composer require zircote/swagger-php` Install OpenApi\Generator First ');
                     return;
                 }
-                $openapi = Generator::scan(array_merge($weiranDirs, $moduleDirs, [$projectDirs]));
+
+                $openapi = (new Generator())->generate(array_merge($weiranDirs, $moduleDirs, [$projectDirs]));
 
                 try {
                     app('files')->ensureDirectoryExists(public_path('docs/swagger-ui/'));
