@@ -4,10 +4,8 @@ declare(strict_types = 1);
 
 namespace Weiran\Core\Tests\Redis;
 
-
 class RdsGeoTest extends RdsBaseTest
 {
-
     public function testGeo()
     {
         // Add
@@ -36,7 +34,6 @@ class RdsGeoTest extends RdsBaseTest
         // 有一个未存在的, 返回null
         $dist = $this->rds->geoDist($key, 'pos-1', 'pos-no-exit');
         $this->assertNull($dist);
-
 
     }
 

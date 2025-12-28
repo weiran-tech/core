@@ -143,6 +143,7 @@ class Permission
 
     /**
      * 权限转换成数组
+     *
      * @return array
      */
     public function toArray()

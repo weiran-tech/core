@@ -5,27 +5,25 @@ declare(strict_types = 1);
 namespace Weiran\Core\Module\Repositories;
 
 use Illuminate\Support\Collection;
+use SplFileInfo;
+use Symfony\Component\Yaml\Yaml;
 use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Module\Module;
 use Weiran\Framework\Exceptions\LoadConfigurationException;
 use Weiran\Framework\Support\Abstracts\Repository;
-use SplFileInfo;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * 所有模块的配置信息.
  */
 class Modules extends Repository
 {
-
-    /**
-     * @var bool
-     */
     protected bool $loadFromCache = true;
 
     /**
      * Initialize.
+     *
      * @param Collection $slugs 集合
+     *
      * @throws LoadConfigurationException
      */
     public function initialize(Collection $slugs)
@@ -62,9 +60,6 @@ class Modules extends Repository
         );
     }
 
-    /**
-     * @return Collection
-     */
     public function enabled(): Collection
     {
         return $this->filter(function (Module $module) {
@@ -72,9 +67,6 @@ class Modules extends Repository
         });
     }
 
-    /**
-     * @return Collection
-     */
     public function loaded(): Collection
     {
         return $this->filter(function (Module $module) {
@@ -82,9 +74,6 @@ class Modules extends Repository
         });
     }
 
-    /**
-     * @return Collection
-     */
     public function notLoaded(): Collection
     {
         return $this->filter(function (Module $module) {
@@ -94,8 +83,9 @@ class Modules extends Repository
 
     /**
      * Load configuration from module configurations folder.
+     *
      * @param string $directory 字典
-     * @return Collection
+     *
      * @throws LoadConfigurationException
      */
     protected function loadConfigurations(string $directory): Collection

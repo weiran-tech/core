@@ -35,7 +35,7 @@ trait RbacUserTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function boot()
     {
@@ -48,6 +48,7 @@ trait RbacUserTrait
             if (!isset($traits[SoftDeletes::class])) {
                 $user->roles()->sync([]);
             }
+
             return true;
         });
         static::deleted(function () {
@@ -64,16 +65,15 @@ trait RbacUserTrait
         }
     }
 
-
     /**
      * Many-to-Many relations with Role.
-     * @return BelongsToMany
      */
     public function roles(): BelongsToMany
     {
         $roleModel = config('weiran.core.rbac.role');
         $accountFk = config('weiran.core.rbac.account_fk');
         $roleFk    = config('weiran.core.rbac.role_fk');
+
         return $this->belongsToMany(
             $roleModel,
             $this->getRoleUserTable(),
@@ -83,7 +83,7 @@ trait RbacUserTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function hasRole($name, bool $require_all = false): bool
     {
@@ -116,7 +116,7 @@ trait RbacUserTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function capable($permission, bool $require_all = false): bool
     {
@@ -150,7 +150,7 @@ trait RbacUserTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function ability($roles, $permissions, array $options = [])
     {
@@ -217,7 +217,7 @@ trait RbacUserTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function attachRole($id)
     {
@@ -226,7 +226,7 @@ trait RbacUserTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function detachRole($id)
     {
@@ -234,18 +234,15 @@ trait RbacUserTrait
         self::clearCachedRoles();
     }
 
-
     protected static function clearCachedRoles()
     {
         Cache::of('weiran-core-rbac')->delete(WeiranCoreDef::rbacCkUserRoles('*'));
     }
 
-    /**
-     * @return string
-     */
     private function getRoleUserTable(): string
     {
         $roleAccountModel = config('weiran.core.rbac.role_account');
-        return (new $roleAccountModel)->getTable();
+
+        return (new $roleAccountModel())->getTable();
     }
 }

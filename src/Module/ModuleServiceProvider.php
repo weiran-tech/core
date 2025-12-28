@@ -12,7 +12,6 @@ use Illuminate\Support\ServiceProvider;
  */
 class ModuleServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-
     /**
      * Register for service provider.
      */
@@ -23,9 +22,6 @@ class ModuleServiceProvider extends ServiceProvider implements DeferrableProvide
         });
     }
 
-    /**
-     * @return array
-     */
     public function provides(): array
     {
         return ['weiran.core.module'];

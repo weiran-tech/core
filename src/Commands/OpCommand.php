@@ -6,8 +6,8 @@ namespace Weiran\Core\Commands;
 
 use Illuminate\Console\Command;
 use Mail;
-use Weiran\System\Mail\MaintainMail;
 use Throwable;
+use Weiran\System\Mail\MaintainMail;
 
 /**
  * User
@@ -42,12 +42,15 @@ class OpCommand extends Command
                 $file    = $this->option('file');
                 if (!config('weiran.core.op_mail')) {
                     $this->error(sys_gen_mk(self::class, 'Config `weiran.core.op_mail` not set. Can not send Op Mail'));
+
                     return 1;
                 }
                 try {
                     Mail::to(config('weiran.core.op_mail'))->send(new MaintainMail($title, $content, $file));
-                } catch (Throwable $e) {
+                }
+                catch (Throwable $e) {
                     $this->error(sys_gen_mk(self::class, $e->getMessage()));
+
                     return 1;
                 }
                 break;
@@ -57,6 +60,7 @@ class OpCommand extends Command
                 break;
             default:
                 $this->warn('Error type in maintain tool.');
+
                 return 1;
         }
 

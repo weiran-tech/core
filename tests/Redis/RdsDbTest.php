@@ -77,7 +77,6 @@ class RdsDbTest extends RdsBaseTest
         $this->assertEquals(2, $int);
     }
 
-
     public function testTag(): void
     {
         $Tag = sys_tag('weiran-core');

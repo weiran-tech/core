@@ -9,8 +9,7 @@ use Weiran\Framework\Application\TestCase;
 
 class RbacTest extends TestCase
 {
-
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }

@@ -4,11 +4,9 @@ declare(strict_types = 1);
 
 namespace Weiran\Core\Rbac;
 
-
 use Blade;
 use Illuminate\Support\ServiceProvider;
 use Weiran\Core\Rbac\Permission\PermissionManager;
-
 
 class RbacServiceProvider extends ServiceProvider
 {
@@ -23,6 +21,7 @@ class RbacServiceProvider extends ServiceProvider
 
     /**
      * Register the module services.
+     *
      * @return void
      */
     public function register()
@@ -31,10 +30,7 @@ class RbacServiceProvider extends ServiceProvider
         $this->registerPermission();
     }
 
-    /**
-     * @return array
-     */
-    public function provides():array
+    public function provides(): array
     {
         return [
             'weiran.core.rbac',
@@ -62,6 +58,7 @@ class RbacServiceProvider extends ServiceProvider
 
     /**
      * Register the blade directives
+     *
      * @return void
      */
     private function bootRbacBladeDirectives()

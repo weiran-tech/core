@@ -6,7 +6,6 @@ namespace Weiran\Core\Tests\Redis;
 
 class RdsOtherTest extends RdsBaseTest
 {
-
     public function testBit()
     {
         $key = $this->key('bit');

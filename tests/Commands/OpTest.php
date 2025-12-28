@@ -8,8 +8,7 @@ use Weiran\Framework\Application\TestCase;
 
 class OpTest extends TestCase
 {
-
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }

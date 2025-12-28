@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace Weiran\Core\Redis;
@@ -12,14 +13,8 @@ class Cache
 {
     use InteractsWithTime;
 
-    /**
-     * @var RdsDb
-     */
     private RdsDb $store;
 
-    /**
-     * @param string $tag
-     */
     private function __construct(string $tag)
     {
         $this->store = new RdsDb('', $tag);
@@ -33,26 +28,17 @@ class Cache
         return new self($tag);
     }
 
-    /**
-     * @return RdsDb
-     */
     public function getStore(): RdsDb
     {
         return $this->store;
     }
 
-    /**
-     * @param string $key
-     * @return bool
-     */
     public function has(string $key): bool
     {
         return $this->get($key) !== null;
     }
 
     /**
-     * @param string $key
-     * @param        $default
      * @return mixed|string|null
      */
     public function get(string $key, $default = null)
@@ -61,10 +47,7 @@ class Cache
     }
 
     /**
-     * @param string   $key
-     * @param          $value
      * @param int|null $ttl seconds
-     * @return bool
      */
     public function put(string $key, $value, $ttl = null): bool
     {
@@ -81,30 +64,21 @@ class Cache
     }
 
     /**
-     * @param string   $key
-     * @param          $value
      * @param int|null $ttl seconds
-     * @return bool
      */
     public function set(string $key, $value, $ttl = null): bool
     {
         return $this->put($key, $value, $ttl);
     }
 
-    /**
-     * @param string $key
-     * @param        $value
-     * @return bool
-     */
     public function forever(string $key, $value): bool
     {
         return $this->store->set($key, $value);
     }
 
     /**
-     * @param string  $key
-     * @param int     $ttl seconds
-     * @param Closure $callback
+     * @param int $ttl seconds
+     *
      * @return mixed|string
      */
     public function remember(string $key, int $ttl, Closure $callback)
@@ -115,12 +89,11 @@ class Cache
         }
 
         $this->put($key, $value = $callback(), $ttl);
+
         return $value;
     }
 
     /**
-     * @param string  $key
-     * @param Closure $callback
      * @return mixed|string
      */
     public function rememberForever(string $key, Closure $callback)
@@ -131,31 +104,20 @@ class Cache
         }
 
         $this->forever($key, $value = $callback());
+
         return $value;
     }
 
-    /**
-     * @param string $key
-     * @return bool
-     */
     public function forget(string $key): bool
     {
         return $this->delete($key);
     }
 
-    /**
-     * @param string $key
-     * @return bool
-     */
     public function delete(string $key): bool
     {
         return $this->store->del($key) > 0;
     }
 
-    /**
-     * @param $ttl
-     * @return int
-     */
     protected function getSeconds($ttl): int
     {
         $duration = $this->parseDateInterval($ttl);

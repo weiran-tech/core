@@ -4,17 +4,16 @@ declare(strict_types = 1);
 
 namespace Weiran\Core\Tests\Redis;
 
+use Predis\Client;
 use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Redis\RdsDb;
 use Weiran\Core\Redis\RdsFieldExpired;
-use Predis\Client;
 
 /**
  * redis 字段filed有效期
  */
 class RdsFieldExpiredTest extends RdsBaseTest
 {
-
     /**
      * 设置有效期
      */
@@ -76,7 +75,7 @@ class RdsFieldExpiredTest extends RdsBaseTest
         $cache->multi();
         $beforeCount = $cache->zcard(WeiranCoreDef::ckRdsKeyFieldExpired());
 
-        (new RdsFieldExpired)->clearExpiredField();
+        (new RdsFieldExpired())->clearExpiredField();
 
         $afterCount = $cache->zcard(WeiranCoreDef::ckRdsKeyFieldExpired());
 
@@ -84,10 +83,6 @@ class RdsFieldExpiredTest extends RdsBaseTest
         $this->assertGreaterThanOrEqual($beforeCount, $afterCount);
     }
 
-    /**
-     * @param $caches
-     * @return int
-     */
     private function cacheCount($caches): int
     {
         $count = 0;

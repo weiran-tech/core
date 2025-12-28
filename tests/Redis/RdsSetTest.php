@@ -8,7 +8,6 @@ use stdClass;
 
 class RdsSetTest extends RdsBaseTest
 {
-
     /**
      * 能添加数组和字串/ID, 并且ID 和字串相同时候被视为一个值
      */
@@ -70,7 +69,6 @@ class RdsSetTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-
     public function testSRem(): void
     {
         $key = $this->key('s-rem');
@@ -88,7 +86,6 @@ class RdsSetTest extends RdsBaseTest
         $this->assertEquals(0, $res);
         $this->rds->del($key);
     }
-
 
     public function testSMove(): void
     {
@@ -124,7 +121,6 @@ class RdsSetTest extends RdsBaseTest
         $this->assertEquals(3, $res);
         $this->rds->del($key);
     }
-
 
     public function testSMembers(): void
     {
@@ -166,7 +162,6 @@ class RdsSetTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-
     public function testInter(): void
     {
         $key      = $this->key('s-inter');
@@ -175,7 +170,6 @@ class RdsSetTest extends RdsBaseTest
         $this->rds->del([
             $key, $key2, $keyStore,
         ]);
-
 
         $this->rds->sAdd($key, [
             1, '1', [1], new stdClass(),
@@ -188,7 +182,6 @@ class RdsSetTest extends RdsBaseTest
         ]);
         $this->assertContains([1], $inter);
 
-
         $this->rds->sInterStore($keyStore, [
             $key, $key2,
         ]);
@@ -198,7 +191,6 @@ class RdsSetTest extends RdsBaseTest
             $key, $key2, $keyStore,
         ]);
     }
-
 
     public function testSUnion(): void
     {
@@ -259,7 +251,6 @@ class RdsSetTest extends RdsBaseTest
             $key, $key2, $keyStore,
         ]);
     }
-
 
     public function testSRandMember(): void
     {

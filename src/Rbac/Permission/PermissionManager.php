@@ -6,8 +6,8 @@ namespace Weiran\Core\Rbac\Permission;
 
 use Auth;
 use Illuminate\Support\Collection;
-use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Classes\Traits\CoreTrait;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Module\Module;
 use Weiran\Core\Rbac\Repositories\PermissionRepository;
 use Weiran\Core\Rbac\Traits\RbacUserTrait;
@@ -19,16 +19,13 @@ class PermissionManager
 {
     use CoreTrait;
 
-    /**
-     * @var PermissionRepository|null
-     */
     protected ?PermissionRepository $repository = null;
 
     /**
      * check permission
+     *
      * @param string $permission 需要检测权限
      * @param string $guard      保护的 guard
-     * @return bool
      */
     public function check(string $permission, string $guard): bool
     {
@@ -41,9 +38,6 @@ class PermissionManager
         return $user->capable($permission);
     }
 
-    /**
-     * @return PermissionRepository
-     */
     public function repository(): PermissionRepository
     {
         if (!$this->repository instanceof PermissionRepository) {
@@ -62,6 +56,7 @@ class PermissionManager
 
     /**
      * Get all permissions.
+     *
      * @return Collection|Permission[]
      */
     public function permissions(): Collection
@@ -111,20 +106,18 @@ class PermissionManager
 
     /**
      * @param string $permission 权限
-     * @return bool
      */
     public function has(string $permission): bool
     {
         return $this->cachedPermissionNames()->contains($permission);
     }
 
-
     /**
      * 缓存的权限 KV
-     * @param string|null $key
+     *
      * @return mixed|string
      */
-    public function cachedPermissionKv(string $key = null)
+    public function cachedPermissionKv(?string $key = null)
     {
         static $permissions;
         if (!$permissions) {
@@ -133,18 +126,19 @@ class PermissionManager
                 $this->corePermission()->permissions()->each(function (Permission $permission) use ($data) {
                     $data->put($permission->key(), $permission->description());
                 });
+
                 return $data->toArray();
             });
         }
         if ($key) {
             return $permissions[$key] ?? '';
         }
+
         return $permissions;
     }
 
     /**
      * 缓存的权限
-     * @return Collection
      */
     public function cachedPermissionNames(): Collection
     {
@@ -155,7 +149,6 @@ class PermissionManager
 
     /**
      * 清除权限缓存
-     * @return void
      */
     public function clearCachedPermissionNames(): void
     {

@@ -20,7 +20,6 @@ class RbacRole
 
     /**
      * Creates a new instance of the middleware.
-     * @param Guard $auth
      */
     public function __construct(Guard $auth)
     {
@@ -29,9 +28,11 @@ class RbacRole
 
     /**
      * Handle an incoming request.
+     *
      * @param Request $request 请求
      * @param Closure $next    后续处理
      * @param string  $roles   角色, 多个使用 | 分隔
+     *
      * @return mixed
      */
     public function handle($request, Closure $next, $roles)

@@ -13,7 +13,6 @@ use Weiran\Framework\Support\WeiranServiceProvider;
 
 class ServiceProvider extends WeiranServiceProvider
 {
-
     protected array $listens = [
         // poppy
         WeiranOptimized::class => [
@@ -23,7 +22,7 @@ class ServiceProvider extends WeiranServiceProvider
 
     /**
      * Bootstrap the module services.
-     * @return void
+     *
      * @throws ModuleNotFoundException
      */
     public function boot(): void
@@ -42,7 +41,6 @@ class ServiceProvider extends WeiranServiceProvider
 
     /**
      * Register the module services.
-     * @return void
      */
     public function register(): void
     {
@@ -58,14 +56,10 @@ class ServiceProvider extends WeiranServiceProvider
         $this->registerSchedule();
     }
 
-
     private function registerSchedule(): void
     {
-        app('events')->listen(WeiranSchedule::class, function (Schedule $schedule) {
-
-        });
+        app('events')->listen(WeiranSchedule::class, function (Schedule $schedule) {});
     }
-
 
     private function registerConsole(): void
     {

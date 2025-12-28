@@ -18,7 +18,6 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
 
     /**
      * Module constructor.
-     * @param $slug
      */
     public function __construct($slug)
     {
@@ -30,41 +29,26 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
         ];
     }
 
-    /**
-     * @return string
-     */
     public function directory(): string
     {
         return $this->get('directory');
     }
 
-    /**
-     * @return string
-     */
     public function namespace(): string
     {
         return $this->get('namespace');
     }
 
-    /**
-     * @return string
-     */
     public function slug(): string
     {
         return $this->get('slug');
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return (bool) $this->offsetGet('enabled');
     }
 
-    /**
-     * @return bool
-     */
     public function validate(): bool
     {
         return $this->offsetExists('name')

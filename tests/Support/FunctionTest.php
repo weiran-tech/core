@@ -15,7 +15,6 @@ use Weiran\System\Models\PamAccount;
 
 class FunctionTest extends TestCase
 {
-
     public function testSysCacher(): void
     {
         for ($i = 0; $i <= 2; $i++) {
@@ -62,7 +61,6 @@ class FunctionTest extends TestCase
 
         $this->assertEquals($dbClass, $dbTable);
 
-
         $arrClassEmail = sys_db(PamAccount::class, ['email']);
         $arrDbEmail    = sys_db('pam_account', ['email']);
         $this->assertEquals($arrClassEmail, $arrDbEmail);
@@ -71,11 +69,9 @@ class FunctionTest extends TestCase
         $strDbEmail    = sys_db('pam_account', 'email');
         $this->assertEquals($strClassEmail, $strDbEmail);
 
-
     }
 
     /**
-     * @return void
      * @throws JsonException
      */
     public function testSysFn(): void
@@ -84,7 +80,8 @@ class FunctionTest extends TestCase
         $queryError = null;
         try {
             PamAccount::whereNotNull('column_not_exist')->first();
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $queryError = $e;
         }
         $resp = new Resp(112233, $this->faker()->words(12, true));
@@ -113,5 +110,4 @@ class FunctionTest extends TestCase
         sys_error(self::class, $queryError);
         $this->assertTrue(true);
     }
-
 }

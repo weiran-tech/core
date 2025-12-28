@@ -13,16 +13,15 @@ class RbacHelper
 {
     /**
      * 获取权限以及分组
+     *
      * @param string $type 账号类型
-     * @return Collection
      */
     public static function permission(string $type): Collection
     {
         $permissionClass = config('weiran.core.rbac.permission');
-        $permission      = (new $permissionClass)->where('type', $type)->get();
+        $permission      = (new $permissionClass())->where('type', $type)->get();
         $collection      = new Collection($permission);
 
         return $collection->groupBy('group');
     }
 }
-

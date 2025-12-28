@@ -11,8 +11,8 @@ class CommentParser
 {
     /**
      * Parse php doc
+     *
      * @param string $data phpdoc 文档
-     * @return array
      */
     public function parseContent(string $data): array
     {
@@ -29,8 +29,8 @@ class CommentParser
 
     /**
      * 解析方法
+     *
      * @param string $doc php doc 文档
-     * @return array
      */
     public function parseMethod(string $doc): array
     {
@@ -74,8 +74,8 @@ class CommentParser
 
     /**
      * 解析变量类型
+     *
      * @param string $str 单行注释
-     * @return string
      */
     private function parseVarType(string $str): string
     {
@@ -88,8 +88,8 @@ class CommentParser
 
     /**
      * 解析变量名称
+     *
      * @param string $str 单行注释
-     * @return string
      */
     private function parseVarName(string $str): string
     {
@@ -102,8 +102,8 @@ class CommentParser
 
     /**
      * 解析变量描述
+     *
      * @param string $str 单行注释
-     * @return string
      */
     private function parseVarDesc(string $str): string
     {
@@ -111,6 +111,7 @@ class CommentParser
         if (preg_match('/\s+\$[a-z0-9_]+\s+(.*+)/i', $str, $match)) {
             return trim($match[1]);
         }
+
         return '';
     }
 }

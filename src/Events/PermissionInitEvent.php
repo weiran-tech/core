@@ -9,9 +9,6 @@ use Weiran\Framework\Application\Event;
 
 class PermissionInitEvent extends Event
 {
-    /**
-     * @var Collection
-     */
     public Collection $permissions;
 
     public function __construct($permissions)

@@ -8,7 +8,6 @@ use Weiran\Framework\Application\TestCase;
 
 class InspectTest extends TestCase
 {
-
     public function testDbSeo()
     {
         $result = weiran_console()->call('core:inspect', [

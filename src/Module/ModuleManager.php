@@ -16,44 +16,23 @@ use Weiran\Core\Module\Repositories\ModulesService;
  */
 class ModuleManager
 {
-
-    /**
-     * @var ?Modules
-     */
     private ?Modules $repository = null;
 
-    /**
-     * @var ?ModulesMenu
-     */
     private ?ModulesMenu $menuRepository = null;
 
-    /**
-     * @var ?ModulesPath
-     */
     private ?ModulesPath $pathRepository = null;
 
-    /**
-     * @var ?ModulesHook
-     */
     private ?ModulesHook $hooksRepo = null;
 
-    /**
-     * @var ?ModulesService
-     */
     private ?ModulesService $serviceRepo = null;
 
-    /**
-     * @return Collection
-     */
     public function enabled(): Collection
     {
         return $this->modules()->enabled();
     }
 
-
     /**
      * 返回所有模块信息
-     * @return Modules
      */
     public function modules(): Modules
     {
@@ -62,13 +41,14 @@ class ModuleManager
             $slugs            = app('weiran')->enabled()->pluck('slug');
             $this->repository->initialize($slugs);
         }
+
         return $this->repository;
     }
 
     /**
      * Get a module by name.
+     *
      * @param mixed $name name
-     * @return Module
      */
     public function get($name): Module
     {
@@ -77,17 +57,14 @@ class ModuleManager
 
     /**
      * Check for module exist.
+     *
      * @param mixed $name name
-     * @return bool
      */
     public function has($name): bool
     {
         return $this->modules()->has($name);
     }
 
-    /**
-     * @return ModulesPath
-     */
     public function path(): ModulesPath
     {
         if (!$this->pathRepository instanceof ModulesPath) {
@@ -102,9 +79,6 @@ class ModuleManager
         return $this->pathRepository;
     }
 
-    /**
-     * @return ModulesMenu
-     */
     public function menus(): ModulesMenu
     {
         if (!$this->menuRepository instanceof ModulesMenu) {
@@ -119,9 +93,6 @@ class ModuleManager
         return $this->menuRepository;
     }
 
-    /**
-     * @return ModulesHook
-     */
     public function hooks(): ModulesHook
     {
         if (!$this->hooksRepo instanceof ModulesHook) {
@@ -136,9 +107,6 @@ class ModuleManager
         return $this->hooksRepo;
     }
 
-    /**
-     * @return ModulesService
-     */
     public function services(): ModulesService
     {
         if (!$this->serviceRepo instanceof ModulesService) {

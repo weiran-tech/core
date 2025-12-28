@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 
 class RdsStrTest extends RdsBaseTest
 {
-
     public function testSet()
     {
         $value  = $this->faker()->name;
@@ -43,7 +42,6 @@ class RdsStrTest extends RdsBaseTest
         $this->assertEquals($res, [$value]);
     }
 
-
     public function testSetEx()
     {
         $value  = $this->faker()->name;
@@ -52,7 +50,6 @@ class RdsStrTest extends RdsBaseTest
         $this->assertTrue($result);
         $result = $this->rds->setex($key, 20, $value);
         $this->assertTrue($result);
-
 
         $this->rds->setex($key, 20, $value);
         $res = $this->rds->get($key);
@@ -84,7 +81,6 @@ class RdsStrTest extends RdsBaseTest
         $this->assertEquals([$value], $result);
     }
 
-
     public function testPSetEx()
     {
         $value = $this->faker()->name;
@@ -95,7 +91,6 @@ class RdsStrTest extends RdsBaseTest
         $result = $this->rds->pSetEx($key, 20000, $value);
         $this->assertTrue($result);
 
-
         $this->rds->pSetEx($key, 20000, $value);
         $res = $this->rds->get($key);
         $this->assertEquals($res, $value);
@@ -103,7 +98,6 @@ class RdsStrTest extends RdsBaseTest
         $res = $this->rds->get($key);
         $this->assertEquals($res, [$value]);
     }
-
 
     public function testGet()
     {

@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace Weiran\Core\Module\Repositories;
 
 use Illuminate\Support\Collection;
-use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Classes\Traits\CoreTrait;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Framework\Exceptions\ApplicationException;
 use Weiran\Framework\Support\Abstracts\Repository;
 
@@ -19,7 +19,9 @@ class ModulesHook extends Repository
 
     /**
      * Initialize.
+     *
      * @param Collection $data 集合
+     *
      * @throws ApplicationException
      */
     public function initialize(Collection $data)

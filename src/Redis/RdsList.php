@@ -8,6 +8,7 @@ class RdsList
 {
     /**
      * 列表最大长度
+     *
      * @var int
      */
     private $maxLength;
@@ -17,12 +18,9 @@ class RdsList
      */
     private $redis;
 
-    /**
-     * @var string $cacheKey
-     */
     private string $cacheKey;
 
-    public function __construct($database = 'default', $cache_key, $max_length = 0)
+    public function __construct($database, $cache_key, $max_length = 0)
     {
         $this->redis     = RdsDb::instance($database);
         $this->maxLength = $max_length;
@@ -31,7 +29,6 @@ class RdsList
 
     /**
      * 获取所有
-     * @return array
      */
     public function all(): array
     {
@@ -40,8 +37,8 @@ class RdsList
 
     /**
      * 入队
+     *
      * @param string $item
-     * @return bool
      */
     public function push($item): bool
     {
@@ -59,11 +56,9 @@ class RdsList
 
     /**
      * 弹出第一个
-     * @return string
      */
     public function shift(): string
     {
         return $this->redis->rpop($this->cacheKey);
     }
-
 }

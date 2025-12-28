@@ -15,7 +15,7 @@ use Weiran\Core\Rbac\Permission\Permission;
  */
 trait RbacRoleTrait
 {
-    //Big block of caching functionality.
+    // Big block of caching functionality.
 
     /**
      * @return Collection|mixed
@@ -23,13 +23,14 @@ trait RbacRoleTrait
     public function cachedPermissions()
     {
         $cacheKey = WeiranCoreDef::rbacCkRolePermissions($this->{$this->primaryKey});
+
         return sys_tag('weiran-core-rbac')->remember($cacheKey, config('cache.ttl'), function () {
             return $this->perms()->get();
         });
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function boot(): void
     {
@@ -45,6 +46,7 @@ trait RbacRoleTrait
                 $role->perms()->sync([]);
             }
             self::clearCachedPermissions();
+
             return true;
         });
 
@@ -72,7 +74,7 @@ trait RbacRoleTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function users(): BelongsToMany
     {
@@ -80,9 +82,10 @@ trait RbacRoleTrait
         $roleAccountClass = config('weiran.core.rbac.role_account');
         $roleFk           = config('weiran.core.rbac.role_fk');
         $accountFk        = config('weiran.core.rbac.account_fk');
+
         return $this->belongsToMany(
             $accountClass,
-            (new $roleAccountClass)->getTable(),
+            (new $roleAccountClass())->getTable(),
             $roleFk,
             $accountFk
         );
@@ -91,13 +94,13 @@ trait RbacRoleTrait
     /**
      * Many-to-Many relations with the permission model.
      * Named "perms" for backwards compatibility. Also, because "perms" is short and sweet.
-     * @return BelongsToMany
      */
     public function perms(): BelongsToMany
     {
         $permissionClass = config('weiran.core.rbac.permission');
         $roleFk          = config('weiran.core.rbac.role_fk');
         $permissionFk    = config('weiran.core.rbac.permission_fk');
+
         return $this->belongsToMany(
             $permissionClass,
             $this->getPermissionRoleTable(),
@@ -107,7 +110,7 @@ trait RbacRoleTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function savePermissions($permissions): void
     {
@@ -115,7 +118,7 @@ trait RbacRoleTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function syncPermission($id): void
     {
@@ -127,8 +130,8 @@ trait RbacRoleTrait
 
     /**
      * 给角色添加权限, 并且清空角色缓存
+     *
      * @param object|array|Permission $id 权限
-     * @return void
      */
     public function attachPermission($id): void
     {
@@ -148,8 +151,8 @@ trait RbacRoleTrait
 
     /**
      * Detach permission from current role.
+     *
      * @param object|array $id 权限ID
-     * @return void
      */
     public function detachPermission($id): void
     {
@@ -168,7 +171,7 @@ trait RbacRoleTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function attachPermissions(array $permissions): void
     {
@@ -178,7 +181,7 @@ trait RbacRoleTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function detachPermissions(array $permissions): void
     {
@@ -189,9 +192,9 @@ trait RbacRoleTrait
 
     /**
      * Checks if the role has a permission by its name.
-     * @param string|array $name permission name or array of permission names
+     *
+     * @param string|array $name        permission name or array of permission names
      * @param bool         $require_all all permissions in the array are required
-     * @return bool
      */
     public function hasPermission($name, bool $require_all = false): bool
     {
@@ -233,12 +236,10 @@ trait RbacRoleTrait
         sys_tag('weiran-core-rbac')->clear(WeiranCoreDef::rbacCkRolePermissions($role_id));
     }
 
-    /**
-     * @return string
-     */
     private function getPermissionRoleTable(): string
     {
         $permissionRole = config('weiran.core.rbac.role_permission');
-        return (new $permissionRole)->getTable();
+
+        return (new $permissionRole())->getTable();
     }
 }

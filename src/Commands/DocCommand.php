@@ -14,7 +14,6 @@ use Psr\Container\NotFoundExceptionInterface;
  */
 class DocCommand extends Command
 {
-
     protected $signature = 'core:doc
 		{type : Document type to run. [api]}
 	';
@@ -34,6 +33,7 @@ class DocCommand extends Command
                 $projectDirs = resource_path('docs');
                 if (!class_exists(Generator::class)) {
                     $this->error('Please Run `composer require zircote/swagger-php` Install OpenApi\Generator First ');
+
                     return;
                 }
 
@@ -45,20 +45,22 @@ class DocCommand extends Command
                     $this->info(
                         'Output swagger api doc, view ' . $this->laravel['config']->get('app.url') . '/docs/swagger-ui/'
                     );
-                } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
+                }
+                catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
                     $this->error($e->getMessage());
                 }
                 break;
-            case 'cs':
+            case 'pint':
                 $this->info(
-                    'Please Run Command:' . "\n" .
-                    'php-cs-fixer fix --config=' . framework_path('.php_cs') . ' --diff --dry-run --verbose --diff-format=udiff'
+                    'Please Run Command:' . PHP_EOL .
+                    './vendor/bin/pint --test --config=' . framework_path('pint.json') . PHP_EOL .
+                    'IF FIX IT RUN `core:doc pint-fix`'
                 );
                 break;
-            case 'cs-pf':
+            case 'pint-fix':
                 $this->info(
                     'Please Run Command:' . "\n" .
-                    'php-cs-fixer fix ' . framework_path() . ' --config=' . framework_path('.php_cs') . ' --diff --dry-run --verbose --diff-format=udiff'
+                    './vendor/bin/pint --config=' . framework_path('pint.json')
                 );
                 break;
             case 'php':

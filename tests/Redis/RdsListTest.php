@@ -6,7 +6,6 @@ namespace Weiran\Core\Tests\Redis;
 
 class RdsListTest extends RdsBaseTest
 {
-
     public function testLPush()
     {
         $key = $this->key('l-push');
@@ -86,7 +85,6 @@ class RdsListTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-
     public function testRPopLPush()
     {
         $key1 = $this->key('l-pop-a');
@@ -107,7 +105,6 @@ class RdsListTest extends RdsBaseTest
         $this->assertEquals([3, 1, 2], $this->rds->lrange($key1, 0, -1));
     }
 
-
     public function testLRem()
     {
         $key = $this->key('l-rem');
@@ -121,7 +118,6 @@ class RdsListTest extends RdsBaseTest
         $this->assertEquals(2, $num);
         $this->rds->del($key);
     }
-
 
     public function testLIndex()
     {
@@ -155,7 +151,6 @@ class RdsListTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-
     public function testLSet()
     {
         $key = $this->key('l-set');
@@ -172,7 +167,6 @@ class RdsListTest extends RdsBaseTest
         $this->assertEquals(['hay'], $res);
         $this->rds->del($key);
     }
-
 
     public function testLTrim()
     {

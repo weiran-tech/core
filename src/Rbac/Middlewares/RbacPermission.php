@@ -4,16 +4,14 @@ declare(strict_types = 1);
 
 namespace Weiran\Core\Rbac\Middlewares;
 
-
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Route;
 use Weiran\Core\Classes\Traits\CoreTrait;
 use Weiran\Core\Exceptions\PermissionException;
 use Weiran\Core\Rbac\Traits\RbacUserTrait;
 use Weiran\Framework\Classes\Resp;
-use Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +29,12 @@ class RbacPermission
 
     /**
      * Handle an incoming request.
+     *
      * @param Request $request 请求
      * @param Closure $next    后续处理
+     *
      * @return mixed
+     *
      * @throws PermissionException
      */
     public function handle($request, Closure $next)
@@ -70,6 +71,7 @@ class RbacPermission
                 return $next($request);
             }
             $title = $this->corePermission()->cachedPermissionKv($methodPermission);
+
             return Resp::error("用户无独立 [{$title}] 权限, 无法访问");
         }
 
@@ -81,8 +83,10 @@ class RbacPermission
                 return $next($request);
             }
             $title = $this->corePermission()->cachedPermissionKv($globalPermission);
+
             return Resp::error("用户无全局 [{$title}] 权限, 无法访问");
         }
+
         return $next($request);
     }
 }

@@ -14,11 +14,9 @@ use Weiran\Framework\Application\TestCase;
 
 class ModuleTest extends TestCase
 {
-
     use CoreTrait;
 
-
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         weiran_console()->call('cache:clear');

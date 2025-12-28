@@ -11,12 +11,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class PermissionFacade extends Facade
 {
-    /**
-     * @return string
-     */
     protected static function getFacadeAccessor(): string
     {
         return 'weiran.core.permission';
     }
 }
-

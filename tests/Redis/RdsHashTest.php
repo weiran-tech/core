@@ -4,13 +4,11 @@ declare(strict_types = 1);
 
 namespace Weiran\Core\Tests\Redis;
 
-
 use Illuminate\Support\Str;
 use Weiran\Framework\Exceptions\ApplicationException;
 
 class RdsHashTest extends RdsBaseTest
 {
-
     public function testHSet()
     {
         $key    = $this->key('h-set');

@@ -19,7 +19,6 @@ use Weiran\System\Mail\TestMail;
 
 class MailTest extends TestCase
 {
-
     private string $mail;
 
     /**
@@ -30,7 +29,7 @@ class MailTest extends TestCase
      * @throws SettingKeyNotMatchException
      * @throws SettingValueOutOfRangeException
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         WeiranSystemDef::fillMailConfig();
@@ -50,7 +49,8 @@ class MailTest extends TestCase
         try {
             Mail::to($this->mail)->send(new TestMail($content));
             $this->assertTrue(true);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $this->assertFalse(false, $e->getMessage());
         }
     }
@@ -63,7 +63,8 @@ class MailTest extends TestCase
         try {
             Mail::to($this->mail)->send(new MaintainMail('Mail Title', 'Mail Content'));
             $this->assertTrue(true);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $this->assertFalse(false, $e->getMessage());
         }
     }

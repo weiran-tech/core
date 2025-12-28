@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Weiran\Core\Commands;
 
-
 use Illuminate\Console\Command;
 use Throwable;
 use Weiran\Core\Redis\RdsPersist;
@@ -16,6 +15,7 @@ class PersistCommand extends Command
 {
     /**
      * The name and signature of the console command.
+     *
      * @var string
      */
     protected $signature = 'core:persist
@@ -24,6 +24,7 @@ class PersistCommand extends Command
 
     /**
      * The console command description.
+     *
      * @var string
      */
     protected $description = 'Redis Persistence To DataBase;';
@@ -43,7 +44,8 @@ class PersistCommand extends Command
             else {
                 RdsPersist::execTable($table);
             }
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $this->error(sys_gen_mk(self::class, $e->getMessage()));
         }
 

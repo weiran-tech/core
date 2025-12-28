@@ -7,8 +7,8 @@ namespace Weiran\Core\Commands;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Classes\Traits\CoreTrait;
+use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Core\Events\PermissionInitEvent;
 use Weiran\Core\Rbac\Permission\Permission;
 use Weiran\Core\Rbac\Permission\PermissionManager;
@@ -26,11 +26,7 @@ class PermissionCommand extends Command
 
     protected $description = 'Permission manage list.';
 
-    /**
-     * @var PermissionManager
-     */
     private PermissionManager $permission;
-
 
     public function __construct()
     {
@@ -40,7 +36,9 @@ class PermissionCommand extends Command
 
     /**
      * Command Handler.
+     *
      * @return int
+     *
      * @throws Exception
      */
     public function handle()
@@ -65,7 +63,6 @@ class PermissionCommand extends Command
 
         return 0;
     }
-
 
     private function lists(): void
     {
@@ -95,6 +92,7 @@ class PermissionCommand extends Command
         $permissions = $this->permission->permissions();
         if (!$permissions->count()) {
             $this->info(sys_gen_mk(self::class, 'No permission need import.'));
+
             return;
         }
 
@@ -104,7 +102,6 @@ class PermissionCommand extends Command
 
         $this->info(sys_gen_mk(self::class, "Init {$num} permission Success!"));
     }
-
 
     /**
      * 检查菜单

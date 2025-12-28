@@ -11,11 +11,10 @@ class RdsBaseTest extends TestCase
 {
     /**
      * Redis Client
-     * @var RdsDb
      */
     protected RdsDb $rds;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->rds = sys_tag('weiran-core:testing');
@@ -23,8 +22,6 @@ class RdsBaseTest extends TestCase
 
     /**
      * 测试缓存KEY
-     * @param string $key
-     * @return string
      */
     protected function key(string $key): string
     {

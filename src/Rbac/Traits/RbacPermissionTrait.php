@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 trait RbacPermissionTrait
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function roles(): BelongsToMany
     {
@@ -21,9 +21,10 @@ trait RbacPermissionTrait
         $permissionFk        = config('weiran.core.rbac.permission_fk');
         $roleModel           = config('weiran.core.rbac.role');
         $rolePermissionModel = config('weiran.core.rbac.role_permission');
+
         return $this->belongsToMany(
             $roleModel,
-            (new $rolePermissionModel)->getTable(),
+            (new $rolePermissionModel())->getTable(),
             $permissionFk,
             $roleFk
         );
@@ -34,6 +35,7 @@ trait RbacPermissionTrait
      * Attach event listener to remove the many-to-many records when trying to delete
      * Will NOT delete any records if the permission model uses soft deletes.
      * 这个地方有点绕, 是我所属的所有角色中同步为空, 删除关于我的信息
+     *
      * @return void
      */
     public static function boot()
@@ -48,4 +50,3 @@ trait RbacPermissionTrait
         });
     }
 }
-

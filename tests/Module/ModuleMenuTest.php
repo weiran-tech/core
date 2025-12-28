@@ -9,11 +9,9 @@ use Weiran\Framework\Application\TestCase;
 
 class ModuleMenuTest extends TestCase
 {
-
     use CoreTrait;
 
-
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         weiran_console()->call('cache:clear');

@@ -13,8 +13,6 @@ interface RbacPermissionContract
 {
     /**
      * Many-to-Many relations with role model.
-     * @return BelongsToMany
      */
     public function roles(): BelongsToMany;
 }
-

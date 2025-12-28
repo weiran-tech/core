@@ -11,7 +11,6 @@ trait CoreTrait
 {
     /**
      * 获取核心的模块
-     * @return ModuleManager
      */
     public function coreModule(): ModuleManager
     {
@@ -20,7 +19,6 @@ trait CoreTrait
 
     /**
      * 权限管理
-     * @return PermissionManager
      */
     public function corePermission(): PermissionManager
     {

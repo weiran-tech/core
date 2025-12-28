@@ -13,17 +13,13 @@ use Throwable;
  */
 class RdsDb
 {
-
     private static array $handleRepo;
 
-    /**
-     * @var RdsNative
-     */
     private RdsNative $handler;
 
     /**
      * Handle constructor.
-     * @param string $database
+     *
      * @param string $tag 4.1 支持标签化的缓存
      */
     public function __construct(string $database = '', string $tag = '')
@@ -35,8 +31,10 @@ class RdsDb
 
     /**
      * 数据库单例
+     *
      * @param string $db  数据库
      * @param string $tag 标签
+     *
      * @return mixed|RdsDb
      */
     public static function instance(string $db = 'default', string $tag = '')
@@ -45,12 +43,11 @@ class RdsDb
         if (!isset(self::$handleRepo[$key])) {
             self::$handleRepo[$key] = new self($db, $tag);
         }
+
         return self::$handleRepo[$key];
     }
 
     /**
-     * @param $method
-     * @param $arguments
      * @return mixed
      */
     public function __call($method, $arguments)
@@ -63,9 +60,11 @@ class RdsDb
         $key = (string) sys_get($arguments, 0);
         if ($value === null) {
             event(new CacheMissed($key));
-        } else {
+        }
+        else {
             event(new CacheHit($key, $value));
         }
+
         return $value;
 
     }
@@ -74,13 +73,14 @@ class RdsDb
     {
         try {
             $this->handler->disconnect();
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
 
         }
     }
 
     public static function __callStatic($method, $arguments)
     {
-        return (new self)->$method(...$arguments);
+        return (new self())->$method(...$arguments);
     }
 }

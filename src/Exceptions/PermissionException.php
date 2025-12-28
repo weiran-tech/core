@@ -6,6 +6,4 @@ namespace Weiran\Core\Exceptions;
 
 use Weiran\Framework\Exceptions\BaseException;
 
-class PermissionException extends BaseException
-{
-}
+class PermissionException extends BaseException {}

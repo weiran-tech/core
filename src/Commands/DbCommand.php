@@ -4,15 +4,14 @@ declare(strict_types = 1);
 
 namespace Weiran\Core\Commands;
 
-
 use DB;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use ReflectionClass;
+use Throwable;
 use Weiran\Core\Classes\Inspect\CommentParser;
 use Weiran\Core\Classes\WeiranCoreDef;
 use Weiran\Framework\Helper\UtilHelper;
-use ReflectionClass;
-use Throwable;
 
 /**
  * Db
@@ -21,6 +20,7 @@ class DbCommand extends Command
 {
     /**
      * The name and signature of the console command.
+     *
      * @var string
      */
     protected $signature = 'core:db
@@ -29,6 +29,7 @@ class DbCommand extends Command
 
     /**
      * The console command description.
+     *
      * @var string
      */
     protected $description = 'Db Maintain Tool';
@@ -67,7 +68,7 @@ class DbCommand extends Command
                     $key     = weiran_friendly($classes);
 
                     $modelDb[] = [
-                        'table'   => (new $classes)->getTable(),
+                        'table'   => (new $classes())->getTable(),
                         'key'     => $key,
                         'perfect' => UtilHelper::isChinese($key) ? 'Y' : '-',
                     ];
@@ -113,7 +114,8 @@ class DbCommand extends Command
                         $seoDb[$key] = $fields;
                     }
                 }
-            } catch (Throwable $e) {
+            }
+            catch (Throwable $e) {
                 $this->error($e->getMessage());
             }
         });

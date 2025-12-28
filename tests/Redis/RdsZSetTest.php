@@ -8,7 +8,6 @@ use Illuminate\Support\Arr;
 
 class RdsZSetTest extends RdsBaseTest
 {
-
     public function testZAdd()
     {
         $key = $this->key('z-add');
@@ -66,7 +65,6 @@ class RdsZSetTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-
     public function testZCard()
     {
         $key = $this->key('z-card');
@@ -83,7 +81,6 @@ class RdsZSetTest extends RdsBaseTest
         $this->assertEquals(2, $score);
         $this->rds->del($key);
     }
-
 
     public function testZCount()
     {
@@ -175,7 +172,6 @@ class RdsZSetTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-
     public function testZRevRangeByScore()
     {
         $key = $this->key('z-rev-range-by-score');
@@ -195,7 +191,6 @@ class RdsZSetTest extends RdsBaseTest
 
         $this->rds->del($key);
     }
-
 
     public function testZRank()
     {
@@ -229,7 +224,6 @@ class RdsZSetTest extends RdsBaseTest
 
         $this->rds->del($key);
     }
-
 
     public function testZRem()
     {
@@ -299,7 +293,6 @@ class RdsZSetTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-
     public function testZScan()
     {
         $key = $this->key('z-scan');
@@ -357,7 +350,6 @@ class RdsZSetTest extends RdsBaseTest
 
         $this->assertCount(4, $values);
     }
-
 
     public function testZInterStore()
     {

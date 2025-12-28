@@ -56,9 +56,9 @@ class RdsPersistTest extends TestCase
         $this->assertEquals($maxId + $rand, DB::table('sys_test_persist')->max('id'));
     }
 
-
     /**
      * 修改测试
+     *
      * @throws TransactionException
      * @throws ApplicationException
      */
@@ -162,13 +162,13 @@ class RdsPersistTest extends TestCase
         $this->assertEquals(0, $result['preserve']);
         $this->assertEquals(8, $result['force']);
 
-
         $purColumn = function ($keys) {
             $columns = [];
             foreach ($keys as $key) {
                 preg_match('/(?<column>[a-zA-Z0-9_]+)(\[(?<operator>\+|-|\.)])?/i', $key, $match);
                 $columns[] = $match['column'];
             }
+
             return $columns;
         };
         $columns   = $purColumn(array_keys($update));
