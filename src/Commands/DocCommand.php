@@ -60,7 +60,7 @@ class DocCommand extends Command
             case 'pint-fix':
                 $this->info(
                     'Please Run Command:' . "\n" .
-                    './vendor/bin/pint --config=' . framework_path('pint.json')
+                    './vendor/bin/pint  --verbose --config=' . framework_path('pint.json')
                 );
                 break;
             case 'php':
