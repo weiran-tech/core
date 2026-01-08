@@ -34,10 +34,8 @@ class RdsDb
      *
      * @param string $db  数据库
      * @param string $tag 标签
-     *
-     * @return mixed|RdsDb
      */
-    public static function instance(string $db = 'default', string $tag = '')
+    public static function instance(string $db = 'default', string $tag = ''): RdsDb
     {
         $key = $db . ($tag ? '-' . $tag : '');
         if (!isset(self::$handleRepo[$key])) {
@@ -45,6 +43,11 @@ class RdsDb
         }
 
         return self::$handleRepo[$key];
+    }
+
+    public static function __callStatic($method, $arguments)
+    {
+        return (new self())->$method(...$arguments);
     }
 
     /**
@@ -77,10 +80,5 @@ class RdsDb
         catch (Throwable $e) {
 
         }
-    }
-
-    public static function __callStatic($method, $arguments)
-    {
-        return (new self())->$method(...$arguments);
     }
 }

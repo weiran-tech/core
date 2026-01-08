@@ -5,11 +5,11 @@ declare(strict_types = 1);
 namespace Weiran\Core\Tests\Redis;
 
 use Illuminate\Support\Str;
-use Weiran\Framework\Exceptions\ApplicationException;
+use Random\RandomException;
 
 class RdsHashTest extends RdsBaseTest
 {
-    public function testHSet()
+    public function testHSet(): void
     {
         $key    = $this->key('h-set');
         $field  = $this->faker()->userName;
@@ -21,7 +21,96 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHSetNx()
+    /**
+     * 测试存储 500 万条数据的内存占用
+     * 模拟 sys_parent_id 的存储场景：field 为用户 ID，value 为父级 ID
+     * @throws RandomException
+     */
+    public function testHSet500w(): void
+    {
+        $this->markTestSkipped('耗时较长，默认跳过，需要时手动执行');
+
+        $key = $this->key('h-set-500w');
+        $this->rds->del($key);
+
+        $totalCount = 5000000; // 500 万
+        $batchSize  = 10000;    // 每批次 1 万条
+
+        echo "\n开始写入 {$totalCount} 条数据...\n";
+        $startTime   = microtime(true);
+        $startMemory = memory_get_usage(true);
+
+        // 获取写入前的 Redis 内存使用
+        $redis        = app('redis')->connection();
+        $beforeInfo   = $redis->command('info', ['memory']);
+        $beforeMemory = (int) $beforeInfo['used_memory'];
+
+        // 分批写入数据
+        for ($i = 0; $i < $totalCount; $i += $batchSize) {
+            $batch = [];
+            for ($j = 0; $j < $batchSize && ($i + $j) < $totalCount; $j++) {
+                $userId = $i + $j + 1;
+                // 模拟父级 ID：假设每 10 个用户有一个父级用户
+                $parentId                = (int) (($userId - 1) / 10) + 1;
+                $batch[(string) $userId] = (string) $parentId;
+            }
+            $this->rds->hMSet($key, $batch);
+
+            // 每 50 万条输出一次进度
+            if (($i + $batchSize) % 500000 === 0) {
+                $progress = ($i + $batchSize) / $totalCount * 100;
+                $elapsed  = microtime(true) - $startTime;
+                echo sprintf("进度: %.1f%% (已用时: %.2fs)\n", $progress, $elapsed);
+            }
+        }
+
+        $endTime   = microtime(true);
+        $endMemory = memory_get_usage(true);
+
+        // 获取写入后的 Redis 内存使用
+        $afterInfo   = $redis->command('info', ['memory']);
+        $afterMemory = (int) $afterInfo['used_memory'];
+
+        // 验证数据条数
+        $count = $this->rds->hLen($key);
+        $this->assertEquals($totalCount, $count);
+
+        // 计算并输出统计信息
+        $timeCost        = $endTime - $startTime;
+        $phpMemoryCost   = $endMemory - $startMemory;
+        $redisMemoryCost = $afterMemory - $beforeMemory;
+
+        echo "\n=== 存储 500 万条数据统计 ===\n";
+        echo sprintf("总条数: %s\n", number_format($totalCount));
+        echo sprintf("耗时: %.2f 秒\n", $timeCost);
+        echo sprintf("QPS: %s 条/秒\n", number_format($totalCount / $timeCost));
+        echo sprintf("PHP 内存增加: %s\n", $this->formatBytes($phpMemoryCost));
+        echo sprintf("Redis 内存增加: %s\n", $this->formatBytes($redisMemoryCost));
+        echo sprintf("平均每条数据: %s\n", $this->formatBytes($redisMemoryCost / $totalCount));
+        echo sprintf("Redis 内存总使用: %s\n", $this->formatBytes($afterMemory));
+        echo sprintf("Redis 内存峰值: %s\n", $this->formatBytes((int) $afterInfo['used_memory_peak']));
+        echo "\n";
+
+        // 随机测试几个查询
+        echo "=== 随机查询测试 ===\n";
+        $queryStartTime = microtime(true);
+        for ($i = 0; $i < 1000; $i++) {
+            $userId           = random_int(1, $totalCount);
+            $parentId         = $this->rds->hGet($key, (string) $userId);
+            $expectedParentId = (int) (($userId - 1) / 10) + 1;
+            $this->assertEquals((string) $expectedParentId, $parentId);
+        }
+        $queryEndTime = microtime(true);
+        $queryTime    = $queryEndTime - $queryStartTime;
+        echo sprintf("1000 次随机查询耗时: %.4f 秒\n", $queryTime);
+        echo sprintf("平均查询耗时: %.4f 毫秒\n", $queryTime * 1000 / 1000);
+        echo "\n";
+
+        // 清理测试数据
+        $this->rds->del($key);
+    }
+
+    public function testHSetNx(): void
     {
         $key    = $this->key('h-set-nx');
         $field  = $this->faker()->userName;
@@ -32,7 +121,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHGet()
+    public function testHGet(): void
     {
         $key   = $this->key('h-get');
         $field = $this->faker()->userName;
@@ -79,7 +168,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHLen()
+    public function testHLen(): void
     {
         $key     = $this->key('h-len');
         $field   = $this->faker()->userName;
@@ -94,7 +183,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHStrLen()
+    public function testHStrLen(): void
     {
         $key   = $this->key('h-str-len');
         $value = (string) $this->faker()->randomNumber(8);
@@ -106,7 +195,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHIncrBy()
+    public function testHIncrBy(): void
     {
         $key = $this->key('h-incr-by');
         $this->rds->del($key);
@@ -123,7 +212,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHMSet()
+    public function testHMSet(): void
     {
         $key = $this->key('h-m-set');
         // clear key
@@ -144,7 +233,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del([$key, $key . '-array']);
     }
 
-    public function testHMGet()
+    public function testHMGet(): void
     {
         $key = $this->key('h-m-get');
         $this->rds->del([$key]);
@@ -158,7 +247,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHKeys()
+    public function testHKeys(): void
     {
         $key = $this->key('h-keys');
         $this->rds->del($key);
@@ -174,7 +263,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHVals()
+    public function testHVals(): void
     {
         $key = $this->key('h-vals');
         $this->rds->del($key);
@@ -190,7 +279,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHGetAll()
+    public function testHGetAll(): void
     {
         $key = $this->key('h-get-all');
         $this->rds->del($key);
@@ -206,17 +295,15 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    /**
-     * @throws ApplicationException
-     */
     public function testHScan(): void
     {
         $key = $this->key('h-scan');
         $this->rds->del($key);
-        $randMax = $this->faker()->randomNumber(2);
+        $faker   = $this->faker();
+        $randMax = $faker->randomNumber(2);
         $values  = [];
         for ($i = 0; $i < $randMax; $i++) {
-            $values[$this->faker()->userName . '-' . $i] = $this->faker()->url . '?q=' . Str::random(64);
+            $values[$faker->userName . '-' . $i] = $faker->url . '?q=' . Str::random(64);
         }
         $this->rds->hMSet($key, $values);
 
@@ -224,5 +311,20 @@ class RdsHashTest extends RdsBaseTest
             'count' => 8,
         ]);
         $this->assertGreaterThan(0, $vals[0]);
+    }
+
+    /**
+     * 格式化字节数
+     */
+    private function formatBytes(float $bytes): string
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $i     = 0;
+        while ($bytes >= 1024 && $i < count($units) - 1) {
+            $bytes /= 1024;
+            $i++;
+        }
+
+        return sprintf('%.2f %s', $bytes, $units[$i]);
     }
 }
