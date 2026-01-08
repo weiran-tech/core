@@ -53,7 +53,7 @@ class DocCommand extends Command
             case 'pint':
                 $this->info(
                     'Please Run Command:' . PHP_EOL .
-                    './vendor/bin/pint --test --config=' . framework_path('pint.json') . PHP_EOL .
+                    './vendor/bin/pint --test --verbose --config=' . framework_path('pint.json') . PHP_EOL .
                     'IF FIX IT RUN `core:doc pint-fix`'
                 );
                 break;
