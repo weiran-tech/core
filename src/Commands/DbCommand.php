@@ -95,18 +95,18 @@ class DbCommand extends Command
                         if (!$docComment) {
                             continue;
                         }
-                        $CommentParser = new CommentParser();
+                        $parser = new CommentParser();
 
-                        $comments = $CommentParser->parseMethod($docComment);
+                        $comments = $parser->parseMethod($docComment);
                         $params   = $comments['params'] ?? [];
                         $fields   = [];
                         collect($params)->where('type', 'property')->each(function ($item) use (&$fields) {
                             $desc  = $item['var_desc'] ?? '';
                             $field = str_replace('$', '', $item['var_name']);
-                            if (preg_match('/(?<input_value>\[.*?])/', $desc ?? '', $match)) {
+                            if (preg_match('/(?<input_value>\[.*?])/', $desc, $match)) {
                                 $desc = str_replace($match['input_value'], '', $desc);
                             }
-                            if (preg_match('/(?<input_value>\(.*?\))/', $desc ?? '', $match)) {
+                            if (preg_match('/(?<input_value>\(.*?\))/', $desc, $match)) {
                                 $desc = str_replace($match['input_value'], '', $desc);
                             }
                             $fields[$field] = $desc;
@@ -132,7 +132,7 @@ class DbCommand extends Command
         $tables = array_map('reset', DB::select('show tables'));
 
         $suggestString   = function ($col) {
-            if (strpos($col['Type'], 'char') !== false) {
+            if (str_contains($col['Type'], 'char')) {
                 if ($col['Null'] === 'YES') {
                     return '(Char-null)';
                 }
@@ -146,7 +146,7 @@ class DbCommand extends Command
             return '';
         };
         $suggestInt      = function ($col) {
-            if (strpos($col['Type'], 'int') !== false) {
+            if (str_contains($col['Type'], 'int')) {
                 switch ($col['Key']) {
                     case 'PRI':
                         // 主键不能为Null (Allow Null 不可选)
@@ -167,7 +167,7 @@ class DbCommand extends Command
             return '';
         };
         $suggestDecimal  = function ($col) {
-            if (strpos($col['Type'], 'decimal') !== false) {
+            if (str_contains($col['Type'], 'decimal')) {
                 if ($col['Default'] !== '0.00') {
                     return '(Decimal-default)';
                 }
@@ -179,7 +179,7 @@ class DbCommand extends Command
             return '';
         };
         $suggestDatetime = function ($col) {
-            if (strpos($col['Type'], 'datetime') !== false) {
+            if (str_contains($col['Type'], 'datetime')) {
                 if ($col['Default'] !== null) {
                     return '(Datetime-default)';
                 }
@@ -191,7 +191,7 @@ class DbCommand extends Command
             return '';
         };
         $suggestFloat    = function ($col) {
-            if (strpos($col['Type'], 'float') !== false) {
+            if (str_contains($col['Type'], 'float')) {
                 return '(Float-set)';
             }
 

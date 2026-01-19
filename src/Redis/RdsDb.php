@@ -35,7 +35,7 @@ class RdsDb
      * @param string $db  数据库
      * @param string $tag 标签
      */
-    public static function instance(string $db = 'default', string $tag = ''): RdsDb
+    public static function instance(string $db = 'default', string $tag = ''): self
     {
         $key = $db . ($tag ? '-' . $tag : '');
         if (!isset(self::$handleRepo[$key])) {

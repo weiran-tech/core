@@ -134,11 +134,11 @@ class RdsPersist
                             $value = (new Number($ori, 2))->subtract($v)->getValue();
                         }
                         break;
-                        // preserve former
+                    // preserve former
                     case '>':
                         $value = $ori;
                         break;
-                        // preserve current
+                    // preserve current
                     case '<':
                     default:
                         $value = $v;
@@ -184,7 +184,7 @@ class RdsPersist
         // 当前key的所有list数据
         $exists = $rdsDb->hexists($rdsKey, $whereJson);
 
-        $DB = DB::table($table)->where($where);
+        $db = DB::table($table)->where($where);
         if ($exists) {
             // 对之前的数据进行计算
             $former = (array) $rdsDb->hget($rdsKey, $whereJson);
@@ -193,7 +193,7 @@ class RdsPersist
             $updateKey = self::pureKeys(array_keys($update));
             $diffKeys  = array_diff($updateKey, $formerKey);
             if (count($diffKeys)) {
-                $formerDiff = (array) (clone $DB)->select($diffKeys)->first();
+                $formerDiff = (array) (clone $db)->select($diffKeys)->first();
                 if (!$formerDiff) {
                     throw new ApplicationException('数据持久化失败, 数据库中不存在相应数据');
                 }
@@ -203,11 +203,11 @@ class RdsPersist
         }
         else {
             $updateKeys = array_keys($update);
-            $exists     = (clone $DB)->exists();
+            $exists     = (clone $db)->exists();
             if (!$exists) {
                 DB::table($table)->insert($where);
             }
-            $former = (clone $DB)->select(self::pureKeys($updateKeys))->first();
+            $former = (clone $db)->select(self::pureKeys($updateKeys))->first();
             $values = self::calcUpdate((array) $former, $update);
         }
         $rdsDb->hset($rdsKey, $whereJson, $values);

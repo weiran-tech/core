@@ -79,9 +79,9 @@ class RdsDbTest extends RdsBaseTest
 
     public function testTag(): void
     {
-        $Tag = sys_tag('weiran-core');
-        $Tag->hSet('testing-tag-h', 'a', 1);
-        $Tag->hMSet('testing-tag-h', [
+        $tag = sys_tag('weiran-core');
+        $tag->hSet('testing-tag-h', 'a', 1);
+        $tag->hMSet('testing-tag-h', [
             'b' => 2,
             'c' => 3,
         ]);
@@ -89,14 +89,14 @@ class RdsDbTest extends RdsBaseTest
         $all = RdsDb::instance()->hGetAll('tag:weiran-core:testing-tag-h');
         $this->assertCount(3, $all);
 
-        $Tag->set('testing-tag-s', 'abc');
-        $Tag->set('any-s', 'abc');
+        $tag->set('testing-tag-s', 'abc');
+        $tag->set('any-s', 'abc');
 
-        $Tag->clear('testing-tag*');
+        $tag->clear('testing-tag*');
 
-        $this->assertEquals(null, $Tag->get('testing-tag-s'));
-        $this->assertEquals('abc', $Tag->get('any-s'));
+        $this->assertEquals(null, $tag->get('testing-tag-s'));
+        $this->assertEquals('abc', $tag->get('any-s'));
 
-        $Tag->del('any-s');
+        $tag->del('any-s');
     }
 }

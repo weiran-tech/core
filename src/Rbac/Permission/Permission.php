@@ -104,7 +104,7 @@ class Permission
     /**
      * @return string
      */
-    public function group()
+    public function group(): string
     {
         return $this->group;
     }
@@ -112,7 +112,7 @@ class Permission
     /**
      * @return string
      */
-    public function module()
+    public function module(): string
     {
         return $this->module;
     }
@@ -120,7 +120,7 @@ class Permission
     /**
      * @return string
      */
-    public function rootTitle()
+    public function rootTitle(): string
     {
         return $this->rootTitle;
     }
@@ -128,7 +128,7 @@ class Permission
     /**
      * @return string
      */
-    public function groupTitle()
+    public function groupTitle(): string
     {
         return $this->groupTitle;
     }
@@ -136,17 +136,15 @@ class Permission
     /**
      * @return string
      */
-    public function description()
+    public function description(): string
     {
         return $this->description;
     }
 
     /**
      * 权限转换成数组
-     *
-     * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'is_default'  => $this->isDefault,

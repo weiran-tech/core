@@ -6,7 +6,7 @@ namespace Weiran\Core;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Weiran\Core\Listeners\WeiranOptimized\ClearCacheListener;
-use Weiran\Framework\Events\WeiranOptimized;
+use Weiran\Framework\Events\WeiranOptimizedEvent;
 use Weiran\Framework\Events\WeiranSchedule;
 use Weiran\Framework\Exceptions\ModuleNotFoundException;
 use Weiran\Framework\Support\WeiranServiceProvider;
@@ -15,7 +15,7 @@ class ServiceProvider extends WeiranServiceProvider
 {
     protected array $listens = [
         // poppy
-        WeiranOptimized::class => [
+        WeiranOptimizedEvent::class => [
             ClearCacheListener::class,
         ],
     ];
