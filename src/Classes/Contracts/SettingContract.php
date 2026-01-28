@@ -29,12 +29,12 @@ interface SettingContract
     /**
      * Set a setting value from key and value.
      *
-     * @param array|string $key   获取设置key
-     * @param array|string $value 需要设置的值
+     * @param array|string          $key   获取设置key
+     * @param array|string|int|null $value 需要设置的值
      *
      * @return bool
      */
-    public function set(string|array $key, array|string $value = ''): bool;
+    public function set(string|array $key, mixed $value = ''): bool;
 
     /**
      * 清空所有缓存
