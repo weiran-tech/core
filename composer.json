@@ -12,7 +12,8 @@
         "php": "^8.2",
         "ext-bcmath": "*",
         "symfony/yaml": "^6.2",
-        "predis/predis": "^2.3"
+        "predis/predis": "^2.3",
+        "guzzlehttp/guzzle": "^7.3"
     },
     "require-dev": {
         "zircote/swagger-php": "5.*"
