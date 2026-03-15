@@ -25,7 +25,7 @@ class RdsFieldExpiredTest extends RdsBaseTest
             RdsFieldExpired::TYPE_SET,
             RdsFieldExpired::TYPE_HASH,
         ];
-        $expired  = [1, 5, 60, 300];
+        $expired = [1, 5, 60, 300];
 
         $caches = [];
         $count  = 100;

@@ -47,7 +47,7 @@ class CommentParser
 
             $type = $match[1];
             if ($type === 'param' || $type === 'property') {
-                $param              = [
+                $param = [
                     'type'     => $type,
                     'var_type' => $this->parseVarType($line),
                     'var_name' => $this->parseVarName($line),

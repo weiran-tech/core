@@ -101,41 +101,26 @@ class Permission
         return $this->root;
     }
 
-    /**
-     * @return string
-     */
     public function group(): string
     {
         return $this->group;
     }
 
-    /**
-     * @return string
-     */
     public function module(): string
     {
         return $this->module;
     }
 
-    /**
-     * @return string
-     */
     public function rootTitle(): string
     {
         return $this->rootTitle;
     }
 
-    /**
-     * @return string
-     */
     public function groupTitle(): string
     {
         return $this->groupTitle;
     }
 
-    /**
-     * @return string
-     */
     public function description(): string
     {
         return $this->description;

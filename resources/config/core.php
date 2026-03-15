@@ -18,7 +18,7 @@ return [
 
     /* Rbac 模型和外键设定
      * ---------------------------------------- */
-    'rbac'    => [
+    'rbac' => [
         'role'            => PamRole::class,
         'account'         => PamAccount::class,
         'role_account'    => PamRoleAccount::class,

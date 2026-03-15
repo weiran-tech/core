@@ -90,7 +90,7 @@ class Modules extends Repository
      */
     protected function loadConfigurations(string $directory): Collection
     {
-        $files     = app('files');
+        $files = app('files');
         $directory .= DIRECTORY_SEPARATOR . 'configurations';
         if ($files->isDirectory($directory)) {
             $configurations = collect();

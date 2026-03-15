@@ -24,6 +24,7 @@ class RdsHashTest extends RdsBaseTest
     /**
      * 测试存储 500 万条数据的内存占用
      * 模拟 sys_parent_id 的存储场景：field 为用户 ID，value 为父级 ID
+     *
      * @throws RandomException
      */
     public function testHSet500w(): void
@@ -212,7 +213,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del($key);
     }
 
-    public function testHMSet(): void
+    public function testHmSet(): void
     {
         $key = $this->key('h-m-set');
         // clear key
@@ -233,7 +234,7 @@ class RdsHashTest extends RdsBaseTest
         $this->rds->del([$key, $key . '-array']);
     }
 
-    public function testHMGet(): void
+    public function testHmGet(): void
     {
         $key = $this->key('h-m-get');
         $this->rds->del([$key]);

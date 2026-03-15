@@ -164,7 +164,7 @@ class RdsStore
             return true;
         }
         if (strtolower(config('cache.default')) === 'redis') {
-            $res    = sys_tag('weiran-core-persist')->set(WeiranCoreDef::ckPersistRdsLock($key), 'atomic-' . Carbon::now()->timestamp, 'EX', $seconds, 'NX');
+            $res = sys_tag('weiran-core-persist')->set(WeiranCoreDef::ckPersistRdsLock($key), 'atomic-' . Carbon::now()->timestamp, 'EX', $seconds, 'NX');
 
             return $res === false;
         }

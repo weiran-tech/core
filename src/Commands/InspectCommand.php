@@ -355,13 +355,13 @@ class InspectCommand extends Command
                 }
                 // action variable do not need
                 if (strpos($className, '\\Models\\') !== false && in_array($property->getName(), [
-                        'timestamps', 'table', 'fillable', 'primaryKey', 'dates',
-                    ], true)) {
+                    'timestamps', 'table', 'fillable', 'primaryKey', 'dates',
+                ], true)) {
                     continue;
                 }
                 if (strpos($className, '\\Commands\\') !== false && in_array($property->getName(), [
-                        'signature', 'description',
-                    ], true)) {
+                    'signature', 'description',
+                ], true)) {
                     continue;
                 }
 
@@ -447,7 +447,7 @@ class InspectCommand extends Command
                             $desc = $param['var_desc'] ?? '';
                             $type = $param['var_type'] ?? '';
                             if (!$desc || !$type) {
-                                $commentDesc    .= "{$name} ";
+                                $commentDesc .= "{$name} ";
                                 $varCommentDesc = '';
                                 if (!$type) {
                                     $varCommentDesc .= 'type:' . ',';
@@ -850,9 +850,9 @@ class InspectCommand extends Command
 
         $notDefined = array_diff($permissions, $definedPermissions->toArray());
 
-        $this->table(['Inspect Permission: Permission Defined But Not Used'], collect($notUsed)->map(fn($item) => [$item]));
+        $this->table(['Inspect Permission: Permission Defined But Not Used'], collect($notUsed)->map(fn ($item) => [$item]));
 
-        $this->table(['Inspect Permission: Permission Used But Not Defined'], collect($notDefined)->map(fn($item) => [$item]));
+        $this->table(['Inspect Permission: Permission Used But Not Defined'], collect($notDefined)->map(fn ($item) => [$item]));
     }
 
     /**
@@ -887,7 +887,7 @@ class InspectCommand extends Command
             }
 
         }
-        $basename  = pathinfo($file_name);
+        $basename = pathinfo($file_name);
         $className .= '\\' . $basename['filename'];
 
         return str_replace('\\\\', '\\', $className);

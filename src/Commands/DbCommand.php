@@ -131,7 +131,7 @@ class DbCommand extends Command
     {
         $tables = array_map('reset', DB::select('show tables'));
 
-        $suggestString   = function ($col) {
+        $suggestString = function ($col) {
             if (str_contains($col['Type'], 'char')) {
                 if ($col['Null'] === 'YES') {
                     return '(Char-null)';
@@ -145,7 +145,7 @@ class DbCommand extends Command
 
             return '';
         };
-        $suggestInt      = function ($col) {
+        $suggestInt = function ($col) {
             if (str_contains($col['Type'], 'int')) {
                 switch ($col['Key']) {
                     case 'PRI':
@@ -166,7 +166,7 @@ class DbCommand extends Command
 
             return '';
         };
-        $suggestDecimal  = function ($col) {
+        $suggestDecimal = function ($col) {
             if (str_contains($col['Type'], 'decimal')) {
                 if ($col['Default'] !== '0.00') {
                     return '(Decimal-default)';
@@ -190,7 +190,7 @@ class DbCommand extends Command
 
             return '';
         };
-        $suggestFloat    = function ($col) {
+        $suggestFloat = function ($col) {
             if (str_contains($col['Type'], 'float')) {
                 return '(Float-set)';
             }
@@ -215,8 +215,8 @@ class DbCommand extends Command
              * ---------------------------------------- */
 
             foreach ($columns as $column) {
-                $column            = (array) $column;
-                $colSuggest        =
+                $column     = (array) $column;
+                $colSuggest =
                     $suggestString($column) .
                     $suggestInt($column) .
                     $suggestDecimal($column) .

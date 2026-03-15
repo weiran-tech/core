@@ -171,7 +171,7 @@ class RdsPersistTest extends TestCase
 
             return $columns;
         };
-        $columns   = $purColumn(array_keys($update));
+        $columns = $purColumn(array_keys($update));
         $this->assertEquals('force', $columns[2]);
 
     }

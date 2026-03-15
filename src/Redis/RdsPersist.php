@@ -134,11 +134,11 @@ class RdsPersist
                             $value = (new Number($ori, 2))->subtract($v)->getValue();
                         }
                         break;
-                    // preserve former
+                        // preserve former
                     case '>':
                         $value = $ori;
                         break;
-                    // preserve current
+                        // preserve current
                     case '<':
                     default:
                         $value = $v;
