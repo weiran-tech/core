@@ -31,17 +31,17 @@ class Module implements Arrayable, ArrayAccess, JsonSerializable
 
     public function directory(): string
     {
-        return $this->get('directory');
+        return (string) $this->get('directory');
     }
 
     public function namespace(): string
     {
-        return $this->get('namespace');
+        return (string) $this->get('namespace');
     }
 
     public function slug(): string
     {
-        return $this->get('slug');
+        return (string) $this->get('slug');
     }
 
     public function isEnabled(): bool
