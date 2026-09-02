@@ -1,39 +1,40 @@
 {
-    "name": "weiran/core",
-    "description": "An core plugin for weiran.",
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "Duoli",
-            "email": "zhaody901@126.com"
-        }
-    ],
-    "require": {
-        "php": "^8.2",
-        "ext-bcmath": "*",
-        "symfony/yaml": "^6.2",
-        "predis/predis": "^2.3",
-        "guzzlehttp/guzzle": "^7.3"
+  "name": "weiran/core",
+  "description": "An core plugin for weiran.",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Duoli",
+      "email": "zhaody901@126.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "ext-bcmath": "*",
+    "symfony/yaml": "^6.2",
+    "predis/predis": "^2.3",
+    "guzzlehttp/guzzle": "^7.3"
+  },
+  "require-dev": {
+    "zircote/swagger-php": "5.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Weiran\\Core\\": "src/"
     },
-    "require-dev": {
-        "zircote/swagger-php": "5.*"
-    },
-    "autoload": {
-        "psr-4": {
-            "Weiran\\Core\\": "src/"
-        },
-        "files": [
-            "src/Support/functions.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Weiran\\Core\\Tests\\": "tests/"
-        }
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
-    "minimum-stability": "dev"
+    "files": [
+      "src/Support/functions.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Weiran\\Core\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "version": "1.0.2609021609"
 }
